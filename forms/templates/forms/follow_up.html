@@ -1,0 +1,93 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    div.a {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    div.b {
+        text-align: center;
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 100px;
+    }
+    
+    h1 {
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+{% endblock %} {% block content%}
+<form class="brestfed_form" method="post" action="/brestfed/" class='center'>
+    {% csrf_token %}
+    <h1>
+        <center> Follow up Form</center>
+    </h1>
+    <div class="b" style="font-size: 20px; font-weight:bold; text-decoration:underline;">
+        <a href="/zerotosixmonth/" style="color: #666;">0-6 Months Child Form</a>
+    </div>
+    <div class="a" style="font-size: 20px; font-weight:bold; text-decoration:underline;">
+        <a href="/sixtothreeyear/" style="color: #666;">6 Months to 2/3 Years Child Form</a>
+    </div>
+</form>
+
+{% endblock %} {% block extra_js %} {% endblock %}

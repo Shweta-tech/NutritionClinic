@@ -1,0 +1,355 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 100px;
+    }
+    
+    h1 {
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    form span {
+        color: red;
+        font-size: 15px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+{% endblock %} {% block content%}
+<form name="myForm" onsubmit="return validateForm()" method="POST" action="/zerotosixmonth/">
+    {% csrf_token %}
+    <h1>
+        <center> Follow up Form for 0-6 months Child</center>
+    </h1>
+    <span>*</span><label for="child_id"> Child Id:</label> <input type="number" id="cid" name="child_id">
+    <span id="Message1"></span><br>
+    <br><span>*</span> <label for="child_name"> Child Name:</label> <input type="text" id="cname" name="child_name" onkeypress="return (event.charCode> 64 && event.charCode
+        < 91) || (event.charCode> 96 && event.charCode
+            < 123)">
+    <span id="Message2"></span><br>
+    <br><span>*</span> <label for="age"> Age: </label><input id="cage" name="age" onkeypress="return (event.charCode> 47 && event.charCode
+                < 58)">
+    <span id="Message3"></span><br>
+    <br> <label for="mother_id"> Mother Id:</label> <input type="number" id="mid" name="mother_id"> <br>
+    <br><span>*</span> <label for="mother_name"> Mother Name: </label><input type="text" id="mname" name="mother_name" onkeypress="return (event.charCode> 64 && event.charCode
+                    < 91) || (event.charCode> 96 && event.charCode
+                        < 123)">
+    <span id="Message4"></span><br>
+    <br> <label for="date_of_previous_visit"> Date of Previous Visit: </label><input type="date" id="dateprevisit" name="date_of_previous_visit"> <br>
+    <br> <label for="todays_visit_date"> Today's Visit Date: </label><input type="date" id="todayvisitdate" name="todays_visit_date"> <br>
+
+    <br> <label for="Child_s_weight_during_previous_visit"> Child's weight for age during previous visit: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="cwghtprevisit" name="Child_s_weight_during_previous_visit"> <br>
+    <br> <label for="height_of_child_during_previous_visit"> Child's height for age during previous visit: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="chytprevisit" name="height_of_child_during_previous_visit"> <br>
+    <br> <label for="height/lenght_of_child_z_scoreduring_previous_visit">Child's Weight for Height/Length Z Score during previous visit: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="zscoreprevisit" name="heightlenght_of_child_z_scoreduring_previous_visit">    <br>
+
+    <br> <label for="follow_up_date"> Follow up Date: </label><input type="date" id="followupdate" name="follow_up_date"> <br>
+    <h2> Current Measurements: </h2>
+    <label for="weight"> Weight (in kg): </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="wght" name="weight"> <br>
+    <br> <label for="height"> Height (in cms): </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="hyt" hyt name="height"> <br>
+    <br> <label for="weight_percentile"> Weight percentile: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="wghtprcntil" name="weight_percentile"> <br>
+    <br> <label for="height_percentile"> Height percentile: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="hytprcntl" name="height_percentile"> <br>
+    <br> <label for="height/leghth_z_score_percentile"> Weight for Lenght/Height Z Score percentile: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="zscorepercnt" name="height/leghth_z_score_percentile"> <br>
+    <br> <label for="muac_mm"> MUAC (mm): </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="muac" name="muac_mm"> <br>
+    <br> <label for="weight_gain_per_day"> Weight Gain per day: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="wghtprday" name="weight_gain_per_day"> <br>
+    <h2> Questions for 0-6 month's child: </h2>
+    <label for="exclusive_breastfeeding"> Exclusive breastfeeding </label> <br>
+    <input type="radio" id="yes" name="exclusivebf" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="exclusivebf" value="no">
+    <label for="no">No</label><br>
+    <br> <label for="no_of_breastfeeding_in_a_day"> No of breastfeeding in a day: <input type="number" id="bfinday" name="no_of_breastfeeding_in_a_day" > <br>
+    <br> <label for="no_of_breast_feeding_at_night" > No of breast feeding at night: <input type="number" id="bfatnyt" name="no_of_breast_feeding_at_night" > <br>
+    <br> <label for="which_hold_for_breastfeeding_in_a_day_" > Which hold for breastfeeding in a day ? </label><br>
+    <input type="radio" id="cradle" name="holdduringbreastfeed" value="cradle">
+    <label for="cradle">Cradle Hold</label><br>
+    <input type="radio" id="cross" name="holdduringbreastfeed" value="cross">
+    <label for="cross">Cross Cradle Hold</label> <br>
+    <input type="radio" id="football" name="holdduringbreastfeed" value="football">
+    <label for="football">Football Hold</label><br>
+    <input type="radio" id="laidback" name="holdduringbreastfeed" value="laidback">
+    <label for="laidback">Laidback Hold</label> <br>
+    <input type="radio" id="sideline" name="holdduringbreastfeed" value="sideline">
+    <label for="sideline">Sideline Hold</label> <br>
+    <br> <label for="which_hold_for_breastfeeding_at_night_"> Which hold for breastfeeding at night ? </label> <br>
+    <input type="radio" id="cradle" name="holdduringbreastfeednyt" value="cradle">
+    <label for="cradle">Cradle Hold</label><br>
+    <input type="radio" id="cross" name="holdduringbreastfeednyt" value="cross">
+    <label for="cross">Cross Cradle Hold</label> <br>
+    <input type="radio" id="football" name="holdduringbreastfeednyt" value="football">
+    <label for="football">Football Hold</label><br>
+    <input type="radio" id="laidback" name="holdduringbreastfeednyt" value="laidback">
+    <label for="laidback">Laidback Hold</label> <br>
+    <input type="radio" id="sideline" name="holdduringbreastfeednyt" value="sideline">
+    <label for="sideline">Sideline Hold</label> <br>
+    <br> <label for="water_given_or_not"> Water given or not: </label> <br>
+    <input type="radio" id="yes" name="waterneed" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="waterneed" value="no">
+    <label for="no">No</label><br>
+    <br> <label for="honey_or_gutti"> Honey or Gutti: </label> <br>
+    <input type="radio" id="yes" name="honey" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="honey" value="no">
+    <label for="no">No</label><br>
+    <br> <label for="is_baby_taking_anything_else_b"> Is baby taking anything else besides breast milk </label> <br>
+    <input type="radio" id="lctogn" name="besidebm" value="lctogn">
+    <label for="lctogn">Lactogen</label> <br>
+    <input type="radio" id="cmilk" name="besidebm" value="cmilk">
+    <label for="cmilk">Cow's Milk</label><br>
+    <input type="radio" id="biscts" name="besidebm" value="biscts">
+    <label for="biscts">Biscuits</label> <br>
+    <input type="radio" id="watr" name="besidebm" value="watr">
+    <label for="watr">Water</label><br>
+    <input type="radio" id="others11" name="besidebm" value="others11">
+    <label for="others11">Others</label> <br>
+    <div id="active_others11" style="display: none">
+        <label> Others : <input type="text"  name="specify" value="" /></label> <br>
+    </div>
+    <br> <label for="does_mother_know_how_prepare_formula_milk"> Does mother know how to prepare formula milk? </label> <br>
+    <input type="radio" id="yes" name="prepformula" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="prepformula" value="no">
+    <label for="no">No</label><br>
+    <br> <label for="is_she_boiling_water_giving_formula_milk"> Does she use boiled water while giving formula milk? </label><br>
+    <input type="radio" id="yes" name="boilwater" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="boilwater" value="no">
+    <label for="no">No</label><br>
+    <br> <label for="does_she_use_boiled_and_cooled_water"> Does she use cooled water while giving formula milk? </label> <br>
+    <input type="radio" id="yes" name="catwater" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="catwater" value="no">
+    <label for="no">No</label><br>
+    <br> <label for="formula_water_mix_appropriate">Does formula and water mix appropriately?</label> <br>
+    <input type="radio" id="true" name="mixing" value="true">
+    <label for="true">Yes</label> <br>
+    <input type="radio" id="false" name="mixing" value="false">
+    <label for="false">No</label><br>
+    <div id="active_false" style="display: none">
+        <label><input type="radio" name="formula" value="formula1" />Diluted</label>
+        <label><input type="radio" name="formula" value="formula2" />Concentrated</label>
+    </div>
+    <br> <label for="what_method_mother_i_formula_milk_to_baby"> What method mother is using for feeding formula milk to baby? </label> <br>
+    <input type="radio" id="fb" name="method" value="fb">
+    <label for="fb">Feeding Bottle</label> <br>
+    <input type="radio" id="vti" name="method" value="vti">
+    <label for="vti">Vati</label><br>
+    <input type="radio" id="cp" name="method" value="cp">
+    <label for="cp">Cup</label> <br>
+    <input type="radio" id="spun" name="method" value="spun">
+    <label for="spun">Spoon</label><br>
+    <input type="radio" id="syringe" name="method" value="syringe">
+    <label for="syringe">Syringe</label> <br>
+    <br> <label for="any_disease_observed_from_last"> Any illness observed from last visit </label> <br>
+    <input type="radio" id="yes33" name="disese" value="yes33">
+    <label for="yes33">Yes</label> <br>
+    <div id="active_yes33" style="display: none">
+        <label> Specify: <input type="text"  name="specify33" value="" /></label> <br>
+    </div>
+    <input type="radio" id="no" name="disese" value="no">
+    <label for="no">No</label><br>
+
+    <br> <label for="" Are_you_taking_any_food_which_> Are you taking any food which increases breast milk supply? </label> <br>
+    <input type="radio" id="yes11" name="incbfmilk" value="yes11">
+    <label for="yes11">Yes</label> <br>
+    <div id="active_yes11" style="display: none">
+        <label> Specify: <input type="text"  name="specify11" value="" /></label> <br>
+    </div>
+    <input type="radio" id="no" name="incbfmilk" value="no">
+    <label for="no">No</label><br>
+
+    <br> <label for="do_you_use_any_other_methods_t"> Do you use any other methods to increase BM supply? </label> <br>
+    <input type="radio" id="yes22" name="incbmsuply" value="yes22">
+    <label for="yes22">Yes</label> <br>
+    <div id="active_yes22" style="display: none">
+        <label> Specify: <input type="text"  name="specify22" value="" /></label> <br>
+    </div>
+    <input type="radio" id="no" name="incbmsuply" value="no">
+    <label for="no">No</label><br>
+
+    <br> <label for="any_difficulty_breast_feeding_baby"> Any difficulty breast feeding baby? </label> <br>
+    <input type="checkbox" id="niplsor" name="anydifficulty" value="niplsor">
+    <label for="niplsor">Nipple Sore</label><br>
+    <input type="checkbox" id="swellingb" name="anydifficulty" value="swellingb">
+    <label for="swellingb">Swelling in the breast</label><br>
+    <input type="checkbox" id="bacess" name="anydifficulty" value="bacess">
+    <label for="bacess">Breast abscess</label><br>
+    <input type="checkbox" id="engogmnt" name="anydifficulty" value="engogmnt">
+    <label for="engogmnt">Engorgement</label><br>
+    <input type="checkbox" id="difflatchng" name="anydifficulty" value="difflatchng">
+    <label for="difflatchng">Difficulty Latching</label><br>
+    <input type="checkbox" id="cryingbby" name="anydifficulty" value="cryingbby">
+    <label for="cryingbby">Crying baby</label><br>
+    <input type="checkbox" id="lessbmilk" name="anydifficulty" value="lessbmilk">
+    <label for="lessbmilk">Perception of less breast milk</label><br>
+    <input type="checkbox" id="slpngbby" name="anydifficulty" value="slpngbby">
+    <label for="slpngbby">Sleeping baby</label><br>
+    <input type="checkbox" id="brstrefusl" name="anydifficulty" value="brstrefusl">
+    <label for="brstrefusl">Breast Refusal</label><br>
+
+    <center><input type="submit" value="Submit" class="button"></center>
+
+
+</form>
+
+{% endblock %} {% block extra_js %}
+<script>
+    document.getElementById('others11').onclick = function() {
+
+        toggleSub(this, 'active_others11');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('false').onclick = function() {
+
+        toggleSub(this, 'active_false');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    document.getElementById('yes33').onclick = function() {
+
+        toggleSub(this, 'active_yes33');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes11').onclick = function() {
+
+        toggleSub(this, 'active_yes11');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes22').onclick = function() {
+
+        toggleSub(this, 'active_yes22');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    function validateForm() {
+        var id = document.forms["myForm"]["child_id"].value;
+        var name = document.forms["myForm"]["child_name"].value;
+        var age = document.forms["myForm"]["age"].value;
+        var mid = document.forms["myForm"]["mother_id"].value;
+
+
+
+        if (id.length < 1) {
+            document.getElementById('Message1').innerHTML = " Please Enter Child ID*";
+        }
+        if (name.length < 1) {
+            document.getElementById('Message2').innerHTML = " Please Enter Child's name*";
+
+        }
+
+        if (mid.length < 1) {
+            document.getElementById('Message4').innerHTML = " Please Enter Mother ID*";
+        }
+        if (age.length < 1) {
+            document.getElementById('Message3').innerHTML = " Please select Child's age *";
+        }
+        if (name.length < 1 || id.length < 1 || mid.length < 1 || age.length < 1) {
+            return false;
+        }
+    }
+</script>{% endblock %}

@@ -1,0 +1,1044 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 100px;
+    }
+    
+    h1 {
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    form span {
+        color: red;
+        font-size: 15px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+{% endblock %} {% block content%}
+<form class='center' name="myForm" onsubmit="return validateForm()" class="brestfed_form" method="post" action="/sixtothreeyear/">
+    {% csrf_token %}
+    <h1>
+        <center> Follow up Form for 6 Months to 2/3 Years Child</center>
+    </h1>
+
+
+    <span>*</span><label for="child_id"> Child Id:</label> <input type="number" id="cid" name="child_id" value="">
+    <span id="Message1"></span><br>
+    <br><span>*</span> <label for="child_name"> Child Name:</label> <input type="text" id="cname" name="child_name" value="" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <span id="Message2"></span><br>
+    <br><span>*</span> <label for="age"> Age: </label><input id="cage" name="age" onkeypress="return (event.charCode > 47 && event.charCode < 58)">
+    <span id="Message3"></span><br>
+    <br> <label for="mother_id"> Mother Id:</label> <input type="number" id="mid" name="mother_id"> <br>
+    <br><span>*</span> <label for="mother_name"> Mother Name: </label><input type="text" id="mname" name="mother_name" value="" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <span id="Message4"></span><br>
+    <br> <label for="date_of_previous_visit"> Date of Previous Visit: </label><input type="date" id="dateprevisit" name="date_of_previous_visit"> <br>
+    <br> <label for="todays_visit_date"> Today's Visit Date: </label><input type="date" id="todayvisitdate" name="todays_visit_date"> <br>
+
+    <br> <label for="Child_s_weight_during_previous_visit"> Child's weight for age during previous visit: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="cwghtprevisit" name="Child_s_weight_during_previous_visit"> <br>
+    <br> <label for="height_of_child_during_previous_visit"> Child's height for age during previous visit: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="chytprevisit" name="height_of_child_during_previous_visit"> <br>
+    <br> <label for="height/lenght_of_child_z_scoreduring_previous_visit">Child's Weight for Height/Length Z Score during previous visit: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="zscoreprevisit" name="heightlenght_of_child_z_scoreduring_previous_visit">    <br>
+
+    <br> <label for="follow_up_date"> Follow up Date: </label><input type="date" id="followupdate" name="follow_up_date"> <br>
+    <h2> Current Measurements: </h2>
+    <label for="weight"> Weight (in kg): </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="wght" name="weight"> <br>
+    <br> <label for="height"> Height (in cms): </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="hyt" hyt name="height"> <br>
+    <br> <label for="weight_percentile"> Weight percentile: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="wghtprcntil" name="weight_percentile"> <br>
+    <br> <label for="height_percentile"> Height percentile: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="hytprcntl" name="height_percentile"> <br>
+    <br> <label for="height/leghth_z_score_percentile"> Weight for Lenght/Height Z Score percentile: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="zscorepercnt" name="height/leghth_z_score_percentile"> <br>
+    <br> <label for="muac_mm"> MUAC (mm): </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="muac" name="muac_mm"> <br>
+    <br> <label for="weight_gain_per_day"> Weight Gain per day: </label><input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="wghtprday" name="weight_gain_per_day"> <br>
+
+    <h2> Questions for 6 months - 2/3 years children </h2>
+    <label for="does_mother_breastfeed_baby"> Does mother breastfeed baby </label> <br>
+    <input type="radio" id="yes" name="mbfbaby" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="mbfbaby" value="no">
+    <label for="no">No</label><br>
+    <br><label for="no_of_breastfeeding_"> No of breastfeeding in day : </label><input type="number" id="noofbf" name="no_of_breastfeeding_"> <br>
+    <br> <label for="no_of_breast_feeding_at_night_001"> No of breast feeding at night: </label><input type="number" id="noofbfnyt" name="no_of_breast_feeding_at_night_001"> <br>
+    <br> <label for="what_kind_of_food_given_to_baby"> What Kind of food given to baby </label> <br>
+    <input type="checkbox" id="liqd" name="fud" value="liqd">
+    <label for="liqd">Liquid</label><br>
+    <input type="checkbox" id="puree" name="fud" value="puree">
+    <label for="puree">Thick Puree</label><br>
+    <input type="checkbox" id="chuncky" name="fud" value="chuncky">
+    <label for="chuncky">Thick Chuncky Food</label><br>
+    <input type="checkbox" id="table" name="fud" value="table">
+    <label for="table">Table Food</label><br>
+    <input type="checkbox" id="fingrfud" name="fud" value="fingrfud">
+    <label for="fingrfud">Finger Food</label><br>
+    <br> <label for="does_Mother_feed_chi_ls_formula_milk_etc"> Does Mother feed children water?</label><br>
+    <input type="radio" id="yes" name="feedwatr" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="feedwatr" value="no">
+    <label for="no">No</label><br>
+    <br><label for="date_at_complementary_feeding">First date of complementary feeding </label> <input type=d ate id="firstdate" name="date_at_complementary_feeding"><br>
+    <br><label for="what_kind_of_food_groups_given"> What kind of food groups given?</label><br>
+    <input type="checkbox" id="milkproducts" name="foodgroups" value="milkproducts">
+    <label for="milkproducts">Milk Products</label><br>
+    <input type="checkbox" id="grainsroots" name="foodgroups" value="grainsroots">
+    <label for="grainsroots">Grains,Roots and Tubers</label><br>
+    <input type="checkbox" id="pulsesnuts" name="foodgroups" value="pulsesnuts">
+    <label for="pulsesnuts">Pulses,Nuts and Seeds</label><br>
+    <input type="checkbox" id="fleshfood" name="foodgroups" value="fleshfood">
+    <label for="fleshfood">Flesh Food</label><br>
+    <input type="checkbox" id="egg" name="foodgroups" value="egg">
+    <label for="egg">Egg</label><br>
+    <input type="checkbox" id="vitaminarichfood" name="foodgroups" value="vitaminarichfood">
+    <label for="vitaminarichfood">Vitamin A Rich Food</label><br>
+    <input type="checkbox" id="otherfruits" name="foodgroups" value="otherfruits">
+    <label for="otherfruits">Other Fruits and Vegetables</label><br>
+
+    <br> <label for="milk_products_received"> Milk Products </label> <br>
+    <input type="checkbox" id="goat" name="mlkprdct" value="goat">
+    <label for="goat">Goat Milk</label><br>
+    <input type="checkbox" id="cow" name="mlkprdct" value="cow">
+    <label for="cow">Cow Milk</label><br>
+    <input type="checkbox" id="bacess" name="mlkprdct" value="buffalo">
+    <label for="buffalo">Buffalo Milk</label><br>
+    <input type="checkbox" id="curd" name="mlkprdct" value="curd">
+    <label for="curd">Curd</label><br>
+    <input type="checkbox" id="cheese" name="mlkprdct" value="cheese">
+    <label for="cheese">Soft Hard Cheese</label><br>
+    <input type="checkbox" id="pnr" name="mlkprdct" value="pnr">
+    <label for="pnr">Paneer</label><br>
+    <input type="checkbox" id="formulaa" name="mlkprdct" value="formulaa">
+    <label for="formulaa">Formula</label><br>
+    <input type="checkbox" id="otr" name="mlkprdct" value="otr">
+    <label for="otr">Others</label><br>
+    <div id="active_others" style="display: none">
+
+        <label>If Others : </label><input type="text" name="specify" value="" />
+
+
+    </div>
+    <!-- <br> <label for=""Specify__008 > If Others,Specify : <input type="text" id=""spec name=""Specify__008 > <br> -->
+
+    <br> <label for="grains_consumed"> Grains: </label> <br>
+    <input type="checkbox" id="rice" name="grains" value="rice">
+    <label for="rice">Rice</label><br>
+    <input type="checkbox" id="wheat" name="grains" value="wheat">
+    <label for="wheat">Wheat</label><br>
+    <input type="checkbox" id="mazie" name="grains" value="mazie">
+    <label for="mazie">Mazie</label><br>
+    <input type="checkbox" id="millet" name="grains" value="millet">
+    <label for="millet">Millet</label><br>
+    <input type="checkbox" id="jowar" name="grains" value="jowar">
+    <label for="jowar">Jowar</label><br>
+    <input type="checkbox" id="sabudana" name="grains" value="sabudana">
+    <label for="sabudana">Sabudana</label><br>
+    <input type="checkbox" id="rajgira" name="grains" value="rajgira">
+    <label for="rajgira">Rajgira</label><br>
+    <input type="checkbox" id="ragi" name="grains" value="ragi">
+    <label for="ragi">Ragi</label><br>
+    <input type="checkbox" id="oats" name="grains" value="oats">
+    <label for="oats">Oats</label><br>
+    <input type="checkbox" id="corn" name="grains" value="corn">
+    <label for="corn">Fresh Corn</label><br>
+    <input type="checkbox" id="otrs" name="grains" value="otrs">
+    <label for="otrs">Others</label><br>
+    <div id="active_others1" style="display: none">
+
+        <label>If Others : </label><input type="text" name="specify1" value="" />
+
+
+    </div>
+    <!-- <br> <label for=""Specify__013 >If Others,Specify : <input type="text" id="" name=""Specify__013 > <br> -->
+
+    <br> <label for="grain_preparation"> Grain preparation </label> <br>
+    <input type="checkbox" id="plain" name="grainprep" value="plain">
+    <label for="plain">Plain boiled</label><br>
+    <input type="checkbox" id="roti" name="grainprep" value="roti">
+    <label for="roti">Roti</label><br>
+    <input type="checkbox" id="thickp" name="grainprep" value="thickp">
+    <label for="thickp">Thick Porridge</label><br>
+    <input type="checkbox" id="thinp" name="grainprep" value="thinp">
+    <label for="thinp">Thin Porridge</label><br>
+    <input type="checkbox" id="khichdi" name="grainprep" value="khichdi">
+    <label for="khichdi">Khichdi</label><br>
+
+    <!-- <br> <label for=""Roots_and_tubers_preparation > Roots and tubers preparation </label> <br>
+    <input type="checkbox" id="boild" name="roots" value="boild">
+    <label for="boild">Boiled</label><br>
+    <input type="checkbox" id="single" name="roots" value="single">
+    <label for="single">Single Veg</label><br>
+    <input type="checkbox" id="mixed" name="roots" value="mixed">
+    <label for="mixed">Mixed Veg</label><br> -->
+    <br> <label for="grains_consumed"> Roots and Tubers: </label> <br>
+    <input type="checkbox" id="potato" name="rootstubers" value="potato">
+    <label for="potato">Potato</label><br>
+    <input type="checkbox" id="swtpotato" name="rootstubers" value="swtpotato">
+    <label for="swtpotato">Sweet Potato</label><br>
+    <input type="checkbox" id="radish" name="rootstubers" value="radish">
+    <label for="radish">Radish</label><br>
+    <input type="checkbox" id="onion" name="rootstubers" value="onion">
+    <label for="onion">Onion</label><br>
+    <input type="checkbox" id="carrot" name="rootstubers" value="carrot">
+    <label for="carrot">carrot</label><br>
+
+    <br> <label for="pulses"> Pulses: </label> <br>
+    <input type="checkbox" id="mung" name="pls" value="mung">
+    <label for="mung">Mung</label><br>
+    <div id="active_mung" style="display: none">
+
+        <label><input type="radio" name="mungdaal" value="mung1" /> Whole Mung</label>
+        <label><input type="radio" name="mungdaal" value="mung2" /> Mung Daal</label>
+
+    </div>
+    <input type="checkbox" id="tur" name="pls" value="tur">
+    <label for="tur">Toor</label><br>
+    <input type="checkbox" id="masur" name="pls" value="masur">
+    <label for="masur">Masoor</label><br>
+    <div id="active_masur" style="display: none">
+
+        <label><input type="radio" name="masurdaal" value="masur1" /> Whole Masoor</label>
+        <label><input type="radio" name="masurdaal" value="masur2" /> Masoor Daal</label>
+
+    </div>
+    <input type="checkbox" id="urd" name="pls" value="urd">
+    <label for="urd">Urad</label><br>
+    <div id="active_urd" style="display: none">
+
+        <label><input type="radio" name="urdaal" value="urd1" /> Whole Urad</label>
+        <label><input type="radio" name="urdaal" value="urd2" /> Urad Daal</label>
+
+    </div>
+    <input type="checkbox" id="chickpe" name="pls" value="chickpe">
+    <label for="chickpe">Chickpea</label><br>
+    <div id="active_chickpe" style="display: none">
+
+        <label><input type="radio" name="chickpedaal" value="chickpe1" /> Whole Chickpea</label>
+        <label><input type="radio" name="chickpedaal" value="chickpe2" /> Chickpea Daal</label>
+
+    </div>
+    <input type="checkbox" id="moth" name="pls" value="moth">
+    <label for="moth">Moth</label><br>
+    <div id="active_moth" style="display: none">
+
+        <label><input type="radio" name="mothdaal" value="moth1" /> Whole Moth</label>
+        <label><input type="radio" name="mothdaal" value="moth2" /> Moth Daal</label>
+
+    </div>
+    <input type="checkbox" id="blkeydpes" name="pls" value="blkeydpes">
+    <label for="blkeydpes">Black Eyed Peas</label><br>
+    <input type="checkbox" id="pea" name="pls" value="pea">
+    <label for="pea">Pea</label><br>
+    <input type="checkbox" id="rajma" name="pls" value="rajma">
+    <label for="rajma">Rajma</label><br>
+    <input type="checkbox" id="bengalgram" name="pls" value="bengalgram">
+    <label for="bengalgram">Bengal Gram</label><br>
+
+
+    <!-- <br> <label for=""Pulses_Preparation > Pulses Preparation </label> <br>
+    <input type="checkbox" id="dal" name="plsprp" value="dal">
+    <label for="dal">Dal</label><br>
+    <input type="checkbox" id="dalwatr" name="plsprp" value="dalwatr">
+    <label for="dalwatr">Dal Water</label><br>
+    <input type="checkbox" id="usal" name="plsprp" value="usal">
+    <label for="usal">Usal</label><br>
+    <input type="checkbox" id="otherr" name="plsprp" value="otherr">
+    <label for="otherr">Other</label><br>
+    <br> <label for=""Specify__016 > If Other,Specify : <input type="text" id=""spec name=""Specify__016 > <br> -->
+
+    <br> <label for="nuts_and_seeds_type"> Nuts and seeds :</label> <br>
+    <input type="checkbox" id="peanuts" name="nutseed" value="peanuts">
+    <label for="peanuts">Peanuts</label><br>
+    <input type="checkbox" id="almnd" name="nutseed" value="almnd">
+    <label for="almnd">Almonds</label><br>
+    <input type="checkbox" id="cashew" name="nutseed" value="cashew">
+    <label for="cashew">Cashew</label><br>
+    <input type="checkbox" id="chstnut" name="nutseed" value="chstnut">
+    <label for="chstnut">Chestnuts</label><br>
+    <input type="checkbox" id="walnut" name="nutseed" value="walnut">
+    <label for="walnut">Walnut</label><br>
+    <input type="checkbox" id="pista" name="nutseed" value="pista">
+    <label for="pista">Pistachio</label><br>
+    <input type="checkbox" id="hazel" name="nutseed" value="hazel">
+    <label for="hazel">Hazelnut</label><br>
+    <input type="checkbox" id="sesa" name="nutseed" value="sesa">
+    <label for="sesa">Sesame</label><br>
+    <input type="checkbox" id="lots" name="nutseed" value="lots">
+    <label for="lots">Lotus Seeds</label><br>
+    <input type="checkbox" id="sunseed" name="nutseed" value="sunseed">
+    <label for="sunseed">Sunflower Seed</label><br>
+    <input type="checkbox" id="flax" name="nutseed" value="flax">
+    <label for="flax">Flax Seed</label><br>
+    <input type="checkbox" id="pumpkinseeed" name="nutseed" value="pumpkinseeed">
+    <label for="pumpkinseeed">Pumpkin Seed</label><br>
+    <input type="checkbox" id="watermelon" name="nutseed" value="watermelon">
+    <label for="watermelon">Watermelon Seed</label><br>
+    <input type="checkbox" id="otherseed" name="nutseed" value="otherseed">
+    <label for="otherseed">Other Seeds/Nuts </label><br>
+    <div id="active_otherseed" style="display: none">
+
+        <label>If Other Seeds/Nuts,Specify : </label><input type="text" name="specify2" value="" />
+
+
+    </div>
+    <!-- <br> <label for=""Specify__017 > If Other Seeds/Nuts,Specify : <input type="text" id=""spec name=""Specify__017 > <br> -->
+    <!-- <br> <label for=""Nuts_Preparation > Nuts Preparation </label> <br>
+    <input type="checkbox" id="dish" name="nutprp" value="dish">
+    <label for="dish">Condiments in dish</label><br>
+    <input type="checkbox" id="roast" name="nutprp" value="roast">
+    <label for="roast">Roasted boiled</label><br>
+    <input type="checkbox" id="chtni" name="nutprp" value="chtni">
+    <label for="chtni">Chutney/Sauce</label><br> -->
+    <br> <label for="nut_seed_powder_made_or_not"> Nut_Seeds powder made or not</label> <br>
+    <input type="radio" id="yes" name="nutseedpwdr" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="nutseedpwdr" value="no">
+    <label for="no">No</label><br>
+
+    <br> <label for="flesh_foods_type"> Flesh Food</label> <br>
+    <input type="checkbox" id="chiken" name="fleshfud" value="chiken">
+    <label for="chiken">Chicken</label><br>
+    <input type="checkbox" id="redmeat" name="fleshfud" value="redmeat">
+    <label for="redmeat">Red Meat</label><br>
+    <input type="checkbox" id="seafud" name="fleshfud" value="seafud">
+    <label for="seafud">Seafood</label><br>
+    <input type="checkbox" id="orgnmet" name="fleshfud" value="orgnmet">
+    <label for="orgnmet">Organ Meat</label><br>
+    <input type="checkbox" id="fish" name="fleshfud" value="fish">
+    <label for="fish">Fish</label><br>
+    <input type="checkbox" id="othres" name="fleshfud" value="othres">
+    <label for="othres">Others</label><br>
+    <div id="active_otherfleshfud" style="display: none">
+
+        <label>If Others : </label><input type="text" name="specify3" value="" />
+
+
+    </div>
+    <!-- <br> <label for=""Specify__018 > If Others,Specify : <input type="text" id=""spec name=""Specify__018 > <br> -->
+    <!-- <br> <label for=""Flesh_foods_preperation > Flesh foods_preperation </label> <br>
+    <input type="checkbox" id="grave" name="flshfudprp" value="grave">
+    <label for="grave">Gravy</label><br>
+    <input type="checkbox" id="thicksop" name="flshfudprp" value="thicksop">
+    <label for="thicksop">Thick Soups</label><br>
+    <input type="checkbox" id="thinsop" name="flshfudprp" value="thinsop">
+    <label for="thinsop">Thin Soups</label><br>
+    <input type="checkbox" id="mixed" name="flshfudprp" value="mixed">
+    <label for="mixed">Mixed</label><br>
+    <input type="checkbox" id="or" name="flshfudprp" value="or">
+    <label for="or">Other</label><br>
+    <br> <label for=""Specify__019 > If Other,Specify : <input type="text" id=""spec name=""Specify__019 > <br>
+    <br> <label for=""Egg_preperation > Egg_preperation </label> <br>
+    <input type="checkbox" id="boil" name="eggprp" value="boil">
+    <label for="boil">Boiled</label><br>
+    <input type="checkbox" id="omlt" name="eggprp" value="omlt">
+    <label for="omlt">Omlette/Scramble Plain</label><br>
+    <input type="checkbox" id="scrmbl" name="eggprp" value="scrmbl">
+    <label for="scrmbl">Omlette/Scramble with other veg</label><br>
+    <input type="checkbox" id="gravy" name="eggprp" value="gravy">
+    <label for="gravy">Gravy</label><br>
+    <input type="checkbox" id="ors" name="eggprp" value="ors">
+    <label for="ors">Others</label><br>
+    <br> <label for=""Specify__020 > If Others,Specify : <input type="text" id=""spec name=""Specify__020 > <br> -->
+    <br> <label for="does_baby_eat_egg">Does Baby taking Egg Yellow or Egg White?</label> <br>
+    <input type="radio" id="eggyellow" name="vitaprep" value="eggyellow">
+    <label for="eggyellow">Egg Yellow</label><br>
+    <input type="radio" id="eggwhite" name="vitaprep" value="eggwhite">
+    <label for="eggwhite">Egg White</label><br>
+    <br> <label for="quantity_of_egg">Quantity of Egg</label> <br>
+    <input type="radio" id="half" name="quantityofegg" value="half">
+    <label for="half">1/2</label><br>
+    <input type="radio" id="one" name="quantityofegg" value="one">
+    <label for="one">1</label><br>
+    <input type="radio" id="two" name="quantityofegg" value="two">
+    <label for="two">2</label><br>
+    <input type="radio" id="morethntwo" name="quantityofegg" value="morethntwo">
+    <label for="morethntwo">More than 2</label><br>
+    <br> <label for="vitamin_a_fruit_type"> Vitamin A Rich Food</label> <br>
+    <input type="checkbox" id="papaya" name="vitaminfruit" value="papaya">
+    <label for="papaya">Papaya</label><br>
+    <input type="checkbox" id="mngo" name="vitaminfruit" value="mngo">
+    <label for="mngo">Mango</label><br>
+    <input type="checkbox" id="redpumpkin" name="vitaminfruit" value="redpumpkin">
+    <label for="redpumpkin">Red Pumpkin</label><br>
+    <input type="checkbox" id="leafyveg" name="vitaminfruit" value="leafyveg">
+    <label for="leafyveg">Green Leafy veg</label><br>
+    <input type="checkbox" id="tmato" name="vitaminfruit" value="tmato">
+    <label for="tmato">Tomato</label><br>
+    <input type="checkbox" id="orange" name="vitaminfruit" value="orange">
+    <label for="orange">Orange</label><br>
+    <input type="checkbox" id="jackfruit" name="vitaminfruit" value="jackfruit">
+    <label for="jackfruit">Jackfruit</label><br>
+    <input type="checkbox" id="spinach" name="vitaminfruit" value="spinach">
+    <label for="spinach">Spinach</label><br>
+    <input type="checkbox" id="colocasia" name="vitaminfruit" value="colocasia">
+    <label for="colocasia">Colocasia</label><br>
+    <input type="checkbox" id="fenugreeklvs" name="vitaminfruit" value="fenugreeklvs">
+    <label for="fenugreeklvs">Fenugreek Leaves</label><br>
+    <input type="checkbox" id="dilllvs" name="vitaminfruit" value="dilllvs">
+    <label for="dilllvs">Dill Leaves</label><br>
+    <br> <label for="other_veg_consumed"> Other Vegetables </label> <br>
+    <input type="checkbox" id="cauli" name="othrveg" value="cauli">
+    <label for="cauli">Cauliflower</label><br>
+    <input type="checkbox" id="cabag" name="othrveg" value="cabag">
+    <label for="cabag">Cabbage</label><br>
+    <input type="checkbox" id="egplnt" name="othrveg" value="egplnt">
+    <label for="egplnt">Eggplant</label><br>
+
+    <input type="checkbox" id="peas" name="othrveg" value="peas">
+    <label for="peas">Green Peas</label><br>
+    <input type="checkbox" id="okra" name="othrveg" value="okra">
+    <label for="okra">Okra</label><br>
+    <input type="checkbox" id="cumver" name="othrveg" value="cumver">
+    <label for="cumver">Cucumber</label><br>
+    <input type="checkbox" id="bitter" name="othrveg" value="bitter">
+    <label for="bitter">Bitter Gourd</label><br>
+    <input type="checkbox" id="veg" name="othrveg" value="veg">
+    <label for="veg">Other Veg</label><br>
+    <div id="active_otherveg" style="display: none">
+
+        <label>If Other Veg : </label><input type="text" name="specify4" value="" />
+
+
+    </div>
+    <!-- <br> <label for=""Specify__022 >If Other Veg, Specify : <input type="text" id=""spec name=""Specify__022 > <br> -->
+    <br> <label for="other_fruits_consumed"> Other Fruits</label> <br>
+    <input type="checkbox" id="banana" name="fruitsconsume" value="banana">
+    <label for="banana">Banana</label><br>
+    <input type="checkbox" id="dates" name="fruitsconsume" value="dates">
+    <label for="dates">Dates</label><br>
+    <input type="checkbox" id="grapes" name="fruitsconsume" value="grapes">
+    <label for="grapes">Grapes</label><br>
+    <input type="checkbox" id="guava" name="fruitsconsume" value="guavava">
+    <label for="guavava">Guava</label><br>
+    <input type="checkbox" id="apple" name="fruitsconsume" value="apple">
+    <label for="apple">Apple</label><br>
+    <input type="checkbox" id="lemon" name="fruitsconsume" value="lemon">
+    <label for="lemon">Lemon/Lime</label><br>
+    <input type="checkbox" id="watrmlon" name="fruitsconsume" value="watrmlon">
+    <label for="watrmlon">Water Melon</label><br>
+    <input type="checkbox" id="figs" name="fruitsconsume" value="figs">
+    <label for="figs">Figs</label><br>
+    <input type="checkbox" id="berries" name="fruitsconsume" value="berries">
+    <label for="berries">Berries</label><br>
+    <input type="checkbox" id="pine" name="fruitsconsume" value="pine">
+    <label for="pine">Pineapple</label><br>
+    <input type="checkbox" id="pear" name="fruitsconsume" value="pear">
+    <label for="pear">Pear</label><br>
+    <input type="checkbox" id="plums" name="fruitsconsume" value="plums">
+    <label for="plums">Plums</label><br>
+    <input type="checkbox" id="pome" name="fruitsconsume" value="pome">
+    <label for="pome">Pomegranate</label><br>
+    <input type="checkbox" id="fruts" name="fruitsconsume" value="fruts">
+    <label for="fruts">Other Fruits</label><br>
+    <div id="active_otherfruts" style="display: none">
+
+        <label>If Other Fruits : </label><input type="text" name="specify5" value="" />
+
+
+    </div>
+    <!-- <br> <label for=""Specify__023 >If Other Fruits, Specify : <input type="text" id=""spec name=""Specify__023 > <br> -->
+    <br> <label for="junk_foods"> Junk Foods </label><br>
+    <input type="checkbox" id="fruitprdcts" name="junkfud" value="fruitprdcts">
+    <label for="fruitprdcts">Fruit Products</label><br>
+    <div id="active_fruitproducts" style="display: none">
+
+        <label><input type="checkbox" name="frutprdcts" value="frut1" />Fruit Juices </label><br>
+        <label><input type="checkbox" name="frutprdcts" value="frut2" id ="frutprdcts"/> Fruit based beverages</label><br>
+        <div id="fruit_based_beverages" style="display: none">
+
+            <label><input type="radio" name="frutbasedbeverage" value="frutbeverg1" />Milkshake </label><br>
+            <label><input type="radio" name="frutbasedbeverage" value="frutbeverg2" />Soda </label><br>
+            <label><input type="radio" name="frutbasedbeverage" value="frutbeverg3" />Frooti </label><br>
+            <label><input type="radio" name="frutbasedbeverage" value="frutbeverg4" />Fruit Nectars </label><br>
+
+        </div>
+        <label><input type="checkbox" name="frutprdcts" value="frut3" />Jams </label><br>
+        <label><input type="checkbox" name="frutprdcts" value="frut4" /> Jellies</label><br>
+        <label><input type="checkbox" name="frutprdcts" value="frut5" />Marmalade </label><br>
+        <label><input type="checkbox" name="frutprdcts" value="frut6" />Murabbas</label><br>
+    </div>
+    <input type="checkbox" id="confectionary" name="junkfud" value="confectionary">
+    <label for="confectionary">Confectionary</label><br>
+    <div id="confectinaries" style="display: none">
+
+        <label><input type="radio" name="smeconfectionary" value="confec1" />Chocolates </label><br>
+        <label><input type="radio" name="smeconfectionary" value="confec2" />Eclairs and Toffees</label><br>
+        <label><input type="radio" name="smeconfectionary" value="confec3" />Hard Candies</label><br>
+        <label><input type="radio" name="smeconfectionary" value="confec4" />Soft Candies </label><br>
+
+    </div>
+    <input type="checkbox" id="bakeryprdcts" name="junkfud" value="bakeryprdcts">
+    <label for="bakeryprdcts">Bakery Products</label><br>
+    <div id="bakeryproducts" style="display: none">
+        <label><input type="radio" name="bakryprdct" value="brkry1" />Bread </label><br>
+        <label><input type="radio" name="bakryprdct" value="brkry2" />Khari/Butter </label><br>
+        <label><input type="radio" name="bakryprdct" value="brkry3" />Biscuits </label><br>
+        <label><input type="radio" name="bakryprdct" value="brkry4" />Salty Biscuits </label><br>
+        <label><input type="radio" name="bakryprdct" value="brkry5" />Cakes/Pastries </label><br>
+        <label><input type="radio" name="bakryprdct" value="brkry6" />Veg Puffs </label><br>
+        <label><input type="radio" name="bakryprdct" value="brkry7" />Cream Buns </label><br>
+    </div>
+    <input type="checkbox" id="beverges" name="junkfud" value="beverges">
+    <label for="beverges">Beverages</label><br>
+    <div id="beverages" style="display: none">
+        <label><input type="radio" name="hotbeverages" value="beverage1" />Tea </label><br>
+        <label><input type="radio" name="hotbeverages" value="beverage2" />Coffee </label><br>
+        <label><input type="radio" name="hotbeverages" value="beverage3" />Milk with bournvita </label><br>
+        <label><input type="radio" name="hotbeverages" value="beverage4" />Milk with complan </label><br>
+        <label><input type="radio" name="hotbeverages" value="beverage5" />Soft Drinks </label><br>
+    </div>
+    <input type="checkbox" id="rdytoeat" name="junkfud" value="rdytoeat">
+    <label for="rdytoeat">Ready to eat breakfast</label><br>
+    <div id="readytoeat" style="display: none">
+        <label><input type="radio" name="breakfast" value="brk1" />Chocos </label><br>
+        <label><input type="radio" name="breakfast" value="brk2" />Idli </label><br>
+        <label><input type="radio" name="breakfast" value="brk3" />Wada </label><br>
+        <label><input type="radio" name="breakfast" value="brk4" />Upma </label><br>
+        <label><input type="radio" name="breakfast" value="brk5" />Sheera </label><br>
+        <label><input type="radio" name="breakfast" value="brk6" />Dosa </label><br>
+        <label><input type="radio" name="breakfast" value="brk7" />Cornflakes </label><br>
+    </div>
+    <input type="checkbox" id="otherjunkfood" name="junkfud" value="otherjunkfood">
+    <label for="otherjunkfood">Others</label><br>
+    <div id="other_junk_food" style="display: none">
+        <label><input type="radio" name="otherjunkfud" value="junkfud1" />Vada Pav </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud2" />Samosa </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud3" />Bhaji </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud4" />Pav Bhaji </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud5" />Chinese Bhel </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud6" />Manchurian </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud7" />Sandwich </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud8" />Kurkure </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud9" />Chips </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud10" />Wafers </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud11" />Sev Puri </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud12" />Chat </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud13" />Chakli </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud14" />Instant Noodles </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud15" />Pizza </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud16" />Burger </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud17" />Dabeli </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud18" />Shorrma </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud19" />Chinese Foods </label><br>
+        <label><input type="radio" name="otherjunkfud" value="junkfud20" />Pop Corn </label><br>
+    </div>
+
+    <br> <label for="how_many_times_Junk_Food_is_given"> How many times junk food is given? </label><br>
+    <input type="radio" id="daywise" name="timesjunkfood" value="daywise">
+    <label for="daywise">Daily</label><br>
+    <div id="daywisejunkfud" style="display: none">
+        <span>Number of times Junk Food in a Day </span><br>
+        <label><input type="radio" name="dayjunkfood" value="junkfudinday1" />Once in a day </label><br>
+        <label><input type="radio" name="dayjunkfood" value="junkfudinday2" />Twice in a day </label><br>
+        <label><input type="radio" name="dayjunkfood" value="junkfudinday3" />Three times in a day </label><br>
+        <label><input type="radio" name="dayjunkfood" value="junkfudinday4" />More than three times in a day </label><br>
+
+    </div>
+    <input type="radio" id="alternatewise" name="timesjunkfood" value="alternatewise">
+    <label for="alternatewise">Alternate Days</label><br>
+    <input type="radio" id="weekwise" name="timesjunkfood" value="weekwise">
+    <label for="weekwise">Weekly</label><br>
+    <input type="radio" id="onceinfifteenwise" name="timesjunkfood" value="onceinfifteenwise">
+    <label for="onceinfifteenwise">Once in 15 days</label><br>
+    <input type="radio" id="monthwise" name="timesjunkfood" value="monthwise">
+    <label for="monthwise">Monthly</label><br>
+    <input type="radio" id="rarely" name="timesjunkfood" value="rarely">
+    <label for="rarely">Rarely</label><br>
+    <h2>Consistency</h2>
+    <label for="consistency_of_food">consistency of food </label><br>
+    <input type="checkbox" id="soft" name="consistencyoffud" value="soft">
+    <label for="soft">Soft</label><br>
+    <input type="checkbox" id="easytochew" name="consistencyoffud" value="easytochew">
+    <label for="easytochew">Easy to chew </label><br>
+    <input type="checkbox" id="easytoswellow" name="consistencyoffud" value="easytoswellow">
+    <label for="easytoswellow">Easy to swallow</label><br>
+    <input type="checkbox" id="hardtochew" name="consistencyoffud" value="hardtochew">
+    <label for="hardtochew">Hard to chew </label><br>
+    <input type="checkbox" id="requiresjawstrnth" name="consistencyoffud" value="requiresjawstrnth">
+    <label for="requiresjawstrnth">Requires jaw strength to chew</label><br>
+    <h2>Quantity of Foods given to child</h2>
+    <label for="monthwise_food_quantity">Monthwise Food Qunatity </label><br>
+    <input type="checkbox" id="sevnthmonth" name="quantityoffood" value="sevnthmonth">
+    <label for="sevnthmonth">7 Month</label><br>
+    <div id="sevnthmonthfud" style="display: none">
+        <span>Giving 1 big spoon to 4 big spoons two times food in a day </span><br>
+        <label><input type="radio" name="sevnmnthfood" value="sevnfud1" />Yes</label><br>
+        <label><input type="radio" name="sevnmnthfood" value="sevnfud2" />No</label><br>
+    </div>
+    <input type="checkbox" id="eightmonth" name="quantityoffood" value="eightmonth">
+    <label for="eightmonth">8 Month</label><br>
+    <div id="eightmonthfud" style="display: none">
+        <span>Giving 1/2 cup ( 124 ml ) food three times in a day </span><br>
+        <label><input type="radio" name="atemnthfood" value="atefud1" />Yes</label><br>
+        <label><input type="radio" name="atemnthfood" value="atefud2" />No</label><br>
+    </div>
+    <input type="checkbox" id="ninemonth" name="quantityoffood" value="ninemonth">
+    <label for="ninemonth">9 Month</label><br>
+    <div id="ninemonthfud" style="display: none">
+        <span>Giving 1/2 cup ( 124 ml ) food three times and two times breakfast in a day </span><br>
+        <label><input type="radio" name="ninmnthfood" value="ninefud1" />Yes</label><br>
+        <label><input type="radio" name="ninmnthfood" value="ninefud2" />No</label><br>
+    </div>
+    <input type="checkbox" id="tentoelvn" name="quantityoffood" value="tentoelvn">
+    <label for="tentoelvn">10-11 Month</label><br>
+    <div id="tentoelvnmonthfud" style="display: none">
+        <span>Giving 1/2 cup ( 124 ml ) food three times and two times breakfast in a day </span><br>
+        <label><input type="radio" name="tentoelvnmnthfood" value="tentoelvnfud1" />Yes</label><br>
+        <label><input type="radio" name="tentoelvnmnthfood" value="tentoelvnfud2" />No</label><br>
+    </div>
+    <input type="checkbox" id="twelvtothrnteen" name="quantityoffood" value="twelvtothrnteen">
+    <label for="twelvtothrnteen">12-13 Month</label><br>
+    <div id="twlvtothrtnmonthfud" style="display: none">
+        <span>Giving 1/2 cup ( 124 ml ) food and proper food three times and two times breakfast in a day </span><br>
+        <label><input type="radio" name="twlvtothrtnmnthfood" value="twlvtothrtnfud1" />Yes</label><br>
+        <label><input type="radio" name="twlvtothrtnmnthfood" value="twlvtothrtnfud2" />No</label><br>
+    </div>
+
+
+    <br>
+    <center><input type="submit" value="Submit" class="button">
+        <center>
+
+</form>
+
+{% endblock %} {% block extra_js %}
+<script>
+    document.getElementById('twelvtothrnteen').onclick = function() {
+
+        toggleSub(this, 'twlvtothrtnmonthfud');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('tentoelvn').onclick = function() {
+
+        toggleSub(this, 'tentoelvnmonthfud');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('ninemonth').onclick = function() {
+
+        toggleSub(this, 'ninemonthfud');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('eightmonth').onclick = function() {
+
+        toggleSub(this, 'eightmonthfud');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('sevnthmonth').onclick = function() {
+
+        toggleSub(this, 'sevnthmonthfud');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('mung').onclick = function() {
+
+        toggleSub(this, 'active_mung');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    document.getElementById('masur').onclick = function() {
+
+        toggleSub(this, 'active_masur');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('urd').onclick = function() {
+
+        toggleSub(this, 'active_urd');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('chickpe').onclick = function() {
+
+        toggleSub(this, 'active_chickpe');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('moth').onclick = function() {
+
+        toggleSub(this, 'active_moth');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('otr').onclick = function() {
+
+        toggleSub(this, 'active_others');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('otrs').onclick = function() {
+
+        toggleSub(this, 'active_others1');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('otherseed').onclick = function() {
+
+        toggleSub(this, 'active_otherseed');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('othres').onclick = function() {
+
+        toggleSub(this, 'active_otherfleshfud');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('veg').onclick = function() {
+
+        toggleSub(this, 'active_otherveg');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('fruts').onclick = function() {
+
+        toggleSub(this, 'active_otherfruts');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('fruitprdcts').onclick = function() {
+
+        toggleSub(this, 'active_fruitproducts');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('frutprdcts').onclick = function() {
+
+        toggleSub(this, 'fruit_based_beverages');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('confectionary').onclick = function() {
+
+        toggleSub(this, 'confectinaries');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('rdytoeat').onclick = function() {
+
+        toggleSub(this, 'readytoeat');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('bakeryprdcts').onclick = function() {
+
+        toggleSub(this, 'bakeryproducts');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('beverges').onclick = function() {
+
+        toggleSub(this, 'beverages');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('otherjunkfood').onclick = function() {
+
+        toggleSub(this, 'other_junk_food');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('daywise').onclick = function() {
+
+        toggleSub(this, 'daywisejunkfud');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    function validateForm() {
+        var id = document.forms["myForm"]["child_id"].value;
+        var name = document.forms["myForm"]["child_name"].value;
+        var mid = document.forms["myForm"]["mother_name"].value;
+        var age = document.forms["myForm"]["age"].value;
+
+
+
+        if (id.length < 1) {
+            document.getElementById('Message1').innerHTML = " Please Enter Child ID*";
+        }
+        if (name.length < 1) {
+            document.getElementById('Message2').innerHTML = " Please Enter Child's name*";
+
+        }
+
+        if (mid.length < 1) {
+            document.getElementById('Message3').innerHTML = " Please Enter Mother ID*";
+        }
+        if (age.length < 1) {
+            document.getElementById('Message4').innerHTML = " Please select Child's age *";
+        }
+        if (name.length < 1 || id.length < 10 || mid.length < 1 || age.length < 1) {
+            return false;
+        }
+    }
+</script>{% endblock %}

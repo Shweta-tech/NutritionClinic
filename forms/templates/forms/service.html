@@ -1,0 +1,131 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    form {
+        margin: auto;
+        width: 85%;
+    }
+    
+    h1 {
+        margin-top: 100px;
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
+    .myDiv {
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        font-size: large;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 50px;
+    }
+</style>
+{% endblock %} {% block content%}
+<form>
+    {% csrf_token %}
+    <h1>
+        <center>Services</center>
+    </h1>
+
+
+    <div class="myDiv" id="ncplm">
+        <h2>Nutrition counseling to pregnant and lactating mothers</h2>
+        <p>Counselling about healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.<br> Promoting a healthy diet by increasing the diversity and
+            amount of foods consumed,<br> Promoting adequate weight gain through sufficient and balanced protein and energy intake,<br> Promoting consistent and continued use of micronutrient supplements, food supplements or fortified foods.</p>
+    </div><br>
+    <div class="myDiv" id="nc0to6">
+        <h2>Nutrition counseling to 0 to 6 years parents</h2>
+        <p>Every parent has heard that children should be eating a " balanced diet. " But a balance of what? <br> The nine nutrients that every child should be getting on a daily basis: Protein , Carbohydrates, Fats, Calcium, Iron, Folate, Fiber, Vitamin
+            A, Vitamin C.</p>
+    </div><br>
+    <div class="myDiv " id="bfc">
+        <h2>BreastFeeding Counseling</h2>
+        <p>It is important to discuss with women the importance of exclusive breastfeeding for six months and communicates with all family members about the benefits of breastfeeding for the mother and baby, the process of breastfeeding and when and how
+            long to feed for.<br>Also discuss continued breastfeeding after six months and introduction of other foods in addition to breast milk.<br> Communicate information on the advantages of breastfeeding (including health benefits, economic benefits,
+            etc.), to help women decide which method of feeding they will choose. </p>
+    </div><br>
+    <div class="myDiv " id="pc">
+        <h2>Pregnancy Club</h2>
+        <p>Provides 18 group sessions on 1st 1000 days.<br> Taught the women about healthy pregnancy and how to raise her child healthy.<br> Arrange sessions for women to aware them about how to breastfeed baby,what nutrients are healthy for baby etc. </p>
+    </div><br>
+    <div class="myDiv " id="r0to6">
+        <h2>Registration of 0 to 6 years children</h2>
+        <p>Registration is required for all 0-6 years children so that it becomes easy to check the status of that child in his next visit.</p>
+    </div><br>
+    <div class="myDiv " id="tramgp">
+        <h2>Takes Regular anthropometric measurements and graph plotting</h2>
+        <p>The specific charts used will depend on the child's age, which determines whether the child will stand for measurement of height or lie down for measurement of length. <br>The measurements will be plotted on growth charts in the Boy's Growth Record
+            or the Girl's Growth Record so that trends can be observed over time and any growth problems identified.<br> It is important to use the Growth Record for the correct sex since boys and girls grow to different sizes. </p>
+    </div><br>
+    <div class="myDiv " id="mac">
+        <h2>Monthly awareness activities in community</h2>
+        <p>See the environment of the community they visits and organise rallies,dramas,sessions according to that so that all people can be aware of why everything is necessary for them.<br> Organise different sessions in each month for Hygiene,Nutrition,Mental
+            Development,Physical Development.
+        </p>
+    </div><br>
+    <div class="myDiv " id="cd">
+        <h2>Cooking Demo</h2>
+        <p>Short videos are prepared of cooking for women.<br> Sometimes organises a camp where women gathers at one place and learns cooking taught to them. </p>
+    </div><br>
+    <div class="myDiv " id="hv">
+        <h2>Home Visits</h2>
+        <p>Visits the family at home in order to understand and help with any social problems,<br> which might prevent progress towards good health, growth and development.</p>
+    </div><br>
+    <div class="myDiv " id="iycf">
+        <h2>IYCF Training of the trainers</h2>
+        <p>Collaborate with local ICDS , ASHA workers and BMC teams working in the area.<br> Our doctors,nutritionist,field officers conduct clinics in the community for pregnant mothers,<br> lactating mothers and children under 3 years of age.</p>
+    </div><br>
+
+</form>
+
+{% endblock %} {% block extra_js %} {% endblock %}

@@ -1,0 +1,439 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 100px;
+    }
+    
+    form span {
+        color: red;
+        font-size: 15px;
+    }
+    
+    h1 {
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+{% endblock %} {% block content%}
+<form name="myForm" onsubmit="return validateForm()" method="POST" action="/pre_delivery/">
+    {% csrf_token %}
+    <h1>
+        Pre-Delivery Survey Form
+    </h1>
+    <!-- {% csrf_token %} -->
+    <br><span>*</span><label for="mother_id"> Mother Id : </label> <input type="number" id="mid" name="mother_id"> <span id="Message3"></span><br>
+    <br><span>*</span> <label for="mother_name"> Mother Name : </label> <input type="text" id="mname" name="mother_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <span id="Message1"></span><br>
+    <br> <span>*</span><label for="age"> Age (in years): </label> <input id="mage" name="age" onkeypress="return (event.charCode > 47 && event.charCode < 58)">
+    <span id="Message2"></span><br>
+    <br> <label for="mother_s_pre_pregnancy_weight"> Mother's pre-pregnancy weight (in kg) : </label> <input type="number" placeholder="1.0" step="0.1" min="0" max="1000" id="mpreprgncywght" name="mother_s_pre_pregnancy_weight"> <br>
+    <br> <label for="mother_s_weight_gains_during_pregnancy"> Mother's weight gains during pregnancy (in kg): </label> <input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="mwghtduringprgncy" name="mother_s_weight_gains_during_pregnancy">    <br>
+    <br> <label for="mother_s_height"> Mother's height (in cm) :</label> <input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="mheight" name="mother_s_height"> <br>
+    <br> <label for="occupation_of_the_mother"> Occupation of the mother :</label> <br>
+    <input type="radio" id="wage" name="moccupation" value="wage">
+    <label for="wage">Daily Wage laborer</label><br>
+    <input type="radio" id="pjob" name="moccupation" value="pjob">
+    <label for="pjob">Private Job</label><br>
+    <input type="radio" id="gjob" name="moccupation" value="gjob">
+    <label for="gjob">Government Job</label><br>
+    <input type="radio" id="farmr" name="moccupation" value="farmr">
+    <label for="farmr">Farmer</label><br>
+    <input type="radio" id="othr2" name="moccupation" value="othr2">
+    <label for="othr2">Others</label><br>
+    <div id="active_othr2" style="display: none">
+        <label>If Others Specify : </label> <input type="text" name="specifyoccupation" value="" /><br>
+    </div>
+
+    <br> <label for="highest_education_qu_lification_of_mother"> Highest Education Qualification of Mother :</label><br>
+    <input type="radio" id="ilitrte" name="qualify" value="ilitrte">
+    <label for="ilitrte">Illiterate</label><br>
+    <input type="radio" id="5thclass" name="qualify" value="5thclass">
+    <label for="5thclass">5th class pass</label><br>
+    <input type="radio" id="high" name="qualify" value="high">
+    <label for="high">High School</label><br>
+    <input type="radio" id="12thclass" name="qualify" value="12thclass">
+    <label for="12thclass">12th class pass</label><br>
+    <input type="radio" id="graduate" name="qualify" value="graduate">
+    <label for="graduate">Graduation</label><br>
+    <input type="radio" id="postgraduate" name="qualify" value="postgraduate">
+    <label for="postgraduate">Post Graduate</label><br>
+
+    <br> <label for="religion_to_which_family_belon"> Religion to which family belongs to :</label> <br>
+    <input type="radio" id="hindu" name="religion" value="hindu">
+    <label for="hindu">Hindu</label><br>
+    <input type="radio" id="muslim" name="religion" value="muslim">
+    <label for="muslim">Muslim</label><br>
+    <input type="radio" id="sikh" name="religion" value="sikh">
+    <label for="sikh">Sikh</label><br>
+    <input type="radio" id="christian" name="religion" value="christian">
+    <label for="christian">Christian</label><br>
+    <input type="radio" id="baudh" name="religion" value="baudh">
+    <label for="baudh">Baudh</label><br>
+    <input type="radio" id="jain" name="religion" value="jain">
+    <label for="jain">Jain</label><br>
+    <input type="radio" id="others1" name="religion" value="others1">
+    <label for="others1">Others</label><br>
+    <div id="active_others1" style="display: none">
+        <label>If Others Specify : </label> <input type="text" name="specifyreligion" value="" /><br>
+    </div>
+
+
+    <br> <label for="category_to_which_family_belongs_to"> Category to which family belongs to :</label> <br>
+    <input type="radio" id="sc" name="category" value="sc">
+    <label for="sc">SC</label><br>
+    <input type="radio" id="st" name="category" value="st">
+    <label for="st">ST</label><br>
+    <input type="radio" id="obc" name="category" value="obc">
+    <label for="obc">OBC</label><br>
+    <input type="radio" id="general" name="category" value="general">
+    <label for="general">General</label><br>
+
+    <h2> Father's Details </h2>
+    <label for="father_s_name"> Father's Name : </label> <input type="text" id="fname" name="father_s_name" onkeypress="return (event.charCode> 64 && event.charCode
+    < 91) || (event.charCode> 96 && event.charCode
+        < 123)"> <br>
+    <br> <label for="age_"> Age (in years): </label> <input id="fage" name="fage" onkeypress="return (event.charCode> 47 && event.charCode
+            < 58)"> <br>
+    <br> <label for="height"> Height (in cms): </label> <input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="fheight" name="height"> <br>
+    <br> <label for="occupation_of_the_father"> Occupation of the father : </label> <br>
+    <input type="radio" id="wage" name="foccupation" value="wage">
+    <label for="wage">Daily Wage laborer</label><br>
+    <input type="radio" id="pjob" name="foccupation" value="pjob">
+    <label for="pjob">Private Job</label><br>
+    <input type="radio" id="gjob" name="foccupation" value="gjob">
+    <label for="gjob">Government Job</label><br>
+    <input type="radio" id="farmr" name="foccupation" value="farmr">
+    <label for="farmr">Farmer</label><br>
+    <input type="radio" id="othr4" name="foccupation" value="othr4">
+    <label for="othr4">Others</label><br>
+    <div id="active_othr4" style="display: none">
+        <label>If Others Specify : </label> <input type="text" name="specifyoccuptn" value="" /><br>
+    </div>
+
+    <br> <label for="highest_education_qu_lification_of_father"> Highest Education Qualification of father :</label> <br>
+    <input type="radio" id="ilitrte" name="fqualify" value="ilitrte">
+    <label for="ilitrte">Illiterate</label><br>
+    <input type="radio" id="5thclass" name="fqualify" value="5thclass">
+    <label for="5thclass">5th class pass</label><br>
+    <input type="radio" id="high" name="fqualify" value="high">
+    <label for="high">High School</label><br>
+    <input type="radio" id="12thclass" name="fqualify" value="12thclass">
+    <label for="12thclass">12th class pass</label><br>
+    <input type="radio" id="graduate" name="fqualify" value="graduate">
+    <label for="graduate">Graduation</label><br>
+    <input type="radio" id="postgraduate" name="fqualify" value="postgraduate">
+    <label for="postgraduate">Post Graduate</label>
+    <h2> Details of Siblings</h2>
+    <label for="number_of_siblings"> Number of Siblings : </label> <input type="number" id="siblings" name="number_of_siblings"> <br>
+    <br> <label for="number_of_deaths_in_siblings"> Number of Deaths in siblings : </label> <input type="number" id="deathssib" name="number_of_deaths_in_siblings"> <br>
+    <br> <label for="cause_of_deaths_in_siblings"> Cause of deaths in siblings : </label> <input type="text" id="causesib" name="cause_of_deaths_in_siblings"> <br>
+    <br> <label for="date_of_birth_of_last_child_alive_dead"> Date of birth of last child (alive/dead) : </label> <input type="date" id="doblstc" name="date_of_birth_of_last_child_alive_dead"> <br>
+
+    <h2> Address Information </h2>
+    <label for="anganwadi_name"> Anganwadi Name : </label> <input type="text" id="aname" name="anganwadi_name" onkeypress="return (event.charCode> 64 && event.charCode
+                < 91) || (event.charCode> 96 && event.charCode
+                    < 123)"> <br>
+    <br> <label for="anganwadi_number"> Anganwadi Number : </label> <input type="number" id="anumber" name="anganwadi_number"> <br>
+    <br> <label for="area_type"> Area type </label> <br>
+    <input type="radio" id="rurl" name="area" value="rurl">
+    <label for="rurl">Rural</label><br>
+    <input type="radio" id="urbn" name="area" value="urbn">
+    <label for="urbn">Urban</label><br>
+
+    <br> <label for="block_name"> Block Name : </label> <input type="text" id="block" name="block_name" onkeypress="return (event.charCode> 64 && event.charCode
+                        < 91) || (event.charCode> 96 && event.charCode
+                            < 123)"> <br>
+    <br> <label for="name_of_phc"> Name of PHC : </label> <input type="text" id="phc" name="name_of_phc" onkeypress="return (event.charCode> 64 && event.charCode
+                                < 91) || (event.charCode> 96 && event.charCode
+                                    < 123)"> <br>
+    <br> <label for="name_of_sub_centre"> Name of Sub centre : </label> <input type="text" id="subcenter" name="name_of_sub_centre" onkeypress="return (event.charCode> 64 && event.charCode
+                                        < 91) || (event.charCode> 96 && event.charCode
+                                            < 123)"> <br>
+    <br> <label for="name_of_district_hospital"> Name of District Hospital : </label> <input type="text" id="districthsp" name="name_of_district_hospital" onkeypress="return (event.charCode> 64 && event.charCode
+                                                < 91) || (event.charCode> 96 && event.charCode
+                                                    < 123)"> <br>
+    <br> <label for="name_of_sub_district_hospital"> Name of Sub District Hospital : </label> <input type="text" id="subdistricthsp" name="name_of_sub_district_hospital" onkeypress="return (event.charCode> 64 && event.charCode
+                                                        < 91) || (event.charCode> 96 && event.charCode
+                                                            < 123)"> <br>
+    <br> <label for="geo_location"> Geo location: </label>
+    <!-- <button onclick="getLocation()">Try It</button>
+<p id="demo"></p> <br> -->
+
+
+    <h2> Antenatal History </h2>
+    <label for="visit_number"> Visit Number : </label> <input type="number" id="visit" name="Visit_Number"> <br>
+    <br> <label for="date_of_registration_visit"> Date of Registration Visit : </label> <input type="date" id="dorvisit" name="date_of_registration_visit"> <br>
+    <br> <label for="hospital_registration"> Hospital Registration (in weeks) : </label> <input type="number" id="hspreg" name="hospital_registration"> <br>
+    <br> <label for="hemoglobin_hb_testing_date"> Hemoglobin (hb) Testing Date : </label> <input type="date" id="hbtstdate" name="hemoglobin_hb_testing_date"> <br>
+    <br> <label for="hemoglobin_hb_as_on_visit"> Hemoglobin (hb) as on visit :</label> <input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="hbvisit" name="hemoglobin_hb_as_on_visit"> <br>
+    <br> <label for="weight_in_kg_as_on_visit"> Weight in kg (as on visit) :</label> <input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="wghtonvisit" name="weight_in_kg_as_on_visit"> <br>
+    <br> <label for="is_mother_taking_iron_syrup_or"> Is mother taking iron syrup or tablets?  </label> <br>
+    <input type="radio" id="yes4" name="ironsyrup" value="yes4">
+    <label for="yes4">Yes</label><br>
+    <div id="active_yes4" style="display: none">
+        <br> <label> At what month iron started? </label> <input type="date" name="at_what_month_iron_started" value="" /> <br>
+    </div>
+    <input type="radio" id="no4" name="ironsyrup" value="no4">
+    <label for="no4">No</label> <br>
+    <div id="active_no4" style="display: none">
+        <br> <label> If not taking iron tab,why is mother not taking iron tablet? </label> <input type="text" name="if_not_taking_iron_t_t_taking_iron_tablet" value="" /><br>
+        <span> Does mother know what happens if she doesn't take iron tablet during pregnancy? </span> <br>
+        <label><input type="radio" name="tabiron" value="tab1" />Yes</label><br>
+        <label><input type="radio" name="tabiron" value="tab2" />No</label>
+    </div>
+    <br> <label for="" Is_mother_taking_folic_acid> Is mother taking folic acid? </label> <br>
+    <input type="radio" id="yes" name="folic" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no5" name="folic" value="no5">
+    <label for="no5">No</label> <br>
+    <div id="active_no5" style="display: none">
+        <br> <label> why? </label> <input type="text" name="why" value="" /> <br>
+    </div>
+    <br> <label for="did_mother_know_that_ore_getting_pregnant"> Did mother know that she needed to make folic acid before getting pregnant? </label> <br>
+    <input type="radio" id="yes" name="needfolicacid" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="needfolicacid" value="no">
+    <label for="no">No</label> <br>
+    <br> <label for="where_do_you_get_salt_from"> Where do you get salt from? </label> <br>
+    <input type="radio" id="comp" name="salt" value="comp">
+    <label for="comp">Company</label><br>
+    <input type="radio" id="sea" name="salt" value="sea">
+    <label for="sea">Sea Salt</label> <br>
+    <input type="radio" id="blk" name="salt" value="blk">
+    <label for="blk">Black Salt</label><br>
+    <input type="radio" id="pink" name="salt" value="pink">
+    <label for="pink">Pink Salt</label> <br>
+
+    <br> <label for="is_mother_taking_Calcium_tablets"> Is mother taking Calcium tablets? </label> <br>
+    <input type="radio" id="yes" name="calciumtab" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="calciumtab" value="no">
+    <label for="no">No</label> <br>
+    <br> <label for="whether_tt_doses_were_taken_or_not"> Whether TT doses were taken or not? </label> <br>
+    <input type="radio" id="tkn" name="ttdose" value="tkn">
+    <label for="tkn">Taken</label><br>
+    <input type="radio" id="notkn" name="ttdose" value="notkn">
+    <label for="notkn">Not Taken</label> <br>
+    <br> <label for="date_of_2nd_tt_dose"> Date of 2nd TT Dose: </label> <input type="date" id="secondtt" name="Date_of_2nd_TT_Dose"> <br>
+    <br> <label for="did_mother_consume_t_ngs_during_pregnancy"> Did mother consume these things during pregnancy? </label> <br>
+    <input type="radio" id="tea" name="consumption" value="tea">
+    <label for="tea">Tea</label><br>
+    <input type="radio" id="cofe" name="consumption" value="cofe">
+    <label for="cofe">Coffee</label> <br>
+    <input type="radio" id="alcohl" name="consumption" value="alcohl">
+    <label for="alcohl">Alcohol</label><br>
+    <input type="radio" id="tbco" name="consumption" value="tbco">
+    <label for="tbco">Tobacco</label> <br>
+    <br> <label for="for_how_many_hours_d_ork_during_pregnancy"> For how many hours did she had to work during pregnancy </label> <br>
+    <input type="radio" id="hrs" name="workhrs" value="hrs">
+    <label for="hrs">Less than 4 hours</label><br>
+    <input type="radio" id="somehrs" name="workhrs" value="somehrs">
+    <label for="somehrs">4-8 hours</label> <br>
+    <input type="radio" id="morehrs" name="workhrs" value="morehrs">
+    <label for="morehrs"> >8 hours</label><br>
+
+
+    <h2> Complications during pregnancy </h2>
+    <label for="were_there_any_complications_d"> Were there any complications during pregnancy? </label> <br>
+    <input type="radio" id="yes1" name="complications" value="yes1">
+    <label for="yes1">Yes</label><br>
+    <div id="active_yes1" style="display: none">
+        <label>Specify : </label> <input type="text" name="specify" value="" /><br>
+    </div>
+    <input type="radio" id="no" name="complications" value="no">
+    <label for="no">No</label> <br>
+
+    <br> <label for="whether_mother_was_t_ing_skill_during_ANC"> Whether mother was taught about breastfeeding skill during ANC? </label> <br>
+    <input type="radio" id="yes" name="bfskillanc" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="bfskillanc" value="no">
+    <label for="no">No</label> <br>
+    <br> <label for="whether_mother_was_i_nutrition_during_ANC"> Whether mother was informed on the nutrition during ANC? </label> <br>
+    <input type="radio" id="yes" name="nutritionanc" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="nutritionanc" value="no">
+    <label for="no">No</label> <br>
+    <br> <label for="expected_due_date_edd"> Expected due date (EDD) </label> <input type="date" id="edd" name="expected_due_date_edd"> <br>
+    <br>
+    <center><input type="submit" value="Submit" class="button">
+        <center>
+
+
+</form>
+
+{% endblock %} {% block extra_js %}
+<script>
+    //     var x = document.getElementById("demo");
+
+    //    function getLocation() {
+    //        if (navigator.geolocation) {
+    //           navigator.geolocation.watchPosition(showPosition);
+    //      } else { 
+    //     x.innerHTML ="Geolocation is not supported by this browser.";
+    //   }
+    // }
+
+    // function showPosition(position) {
+    //     x.innerHTML="Latitude:" + position.coords.latitude + 
+    //  "<br>Longitude:" + position.coords.longitude; // } document.getElementById('no5').onclick = function() { toggleSub(this, 'active_no5'); }; function toggleSub(box, id) { var el = document.getElementById(id);
+    if (box.checked) {
+        el.style.display = 'block';
+    } else {
+        el.style.display = 'none';
+    }
+    document.getElementById('yes4').onclick = function() {
+        toggleSub(this, 'active_yes4');
+    };
+    $(document).ready(function() {
+        $("#mid").val(Math.floor(1000 + Math.random() * 9000));
+
+    })
+
+    function toggleSub(box,
+        id) {
+        var el = document.getElementById(id);
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('no4').onclick = function() {
+        toggleSub(this,
+            'active_no4');
+    };
+
+    function toggleSub(box, id) {
+        var el = document.getElementById(id);
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('others1').onclick = function() {
+        toggleSub(this, 'active_others1');
+    };
+
+    function toggleSub(box, id) {
+        var el = document.getElementById(id);
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes1').onclick = function() {
+        toggleSub(this, 'active_yes1');
+    };
+
+    function toggleSub(box, id) {
+        var el = document.getElementById(id);
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('othr2').onclick = function() {
+        toggleSub(this, 'active_othr2');
+    };
+
+    function toggleSub(box, id) {
+        var el = document.getElementById(id);
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('othr4').onclick = function() {
+        toggleSub(this,
+            'active_othr4');
+    };
+
+    function toggleSub(box, id) {
+        var el = document.getElementById(id);
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    function validateForm() {
+        var name = document.forms["myForm"]["mother_name"].value;
+        var age = document.forms["myForm"]["age"].value;
+        var id = document.forms["myForm"]["mother_id"].value;
+        if (name.length < 1) {
+            document.getElementById('Message1').innerHTML = " Please Enter Mother's Name*"
+        }
+        if (age.length < 1) {
+            document.getElementById('Message2').innerHTML = " Please Enter age*";
+        }
+        if (id.length < 1) {
+            document.getElementById('Message3').innerHTML = " Please Enter Mother ID*";
+        }
+        if (name.length < 1 || age.length < 1 || id.length < 1) {
+            return false;
+        }
+    }
+</script>
+
+{% endblock %}

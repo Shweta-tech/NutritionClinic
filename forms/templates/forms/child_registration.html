@@ -1,0 +1,808 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+<meta charset="utf-8">
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+
+
+<!-- Load Esri Leaflet from CDN -->
+<script src="https://unpkg.com/esri-leaflet@2.4.1/dist/esri-leaflet.js"></script>
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/jquery-ui.css' %}" />
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<!-- Load Esri Leaflet Geocoder from CDN -->
+<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
+<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<style>
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 100px;
+    }
+    
+    form span {
+        color: red;
+        font-size: 15px;
+    }
+    
+    h1 {
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    #map {
+        width: 1000px;
+        height: 600px;
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
+    #calculate {
+        cursor: pointer;
+        text-align: center;
+        width: 200px;
+        padding: 5px;
+        margin: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #999;
+        border-radius: 10px;
+        background: rgb(245, 243, 243);
+        background: -moz-linear-gradient(top, #FFD119, #E6B800);
+        font-weight: bold;
+        height: 28px;
+    }
+    
+    #calculate:hover {
+        background: -webkit-gradient(linear, left top, left bottom, from(#E6B800), to(#FFD119));
+        background: -moz-linear-gradient(top, #E6B800, #FFD119);
+        margin-top: 13px;
+        height: 25px;
+    }
+    
+    #calculate:active {
+        background: #403300;
+        padding-top: 10px;
+        height: 20px;
+    }
+    
+    input[type=text],
+    select {
+        width: 100%;
+        color: rgb(39, 22, 22);
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 4px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
+{% endblock %} {% block content%}
+<form action="#" method="post" onsubmit="return validateForm()"> {% csrf_token %}
+    <h1>
+        Child Registration Form
+    </h1>
+    <label for="date_of_registration"> Date of Registration: </label> <input type="text" id="dor" name="date_of_registration"><br>
+    <br><span>*</span><label for="child_id"> Child Id : </label> <input type="number" id="cid" name="child_id">
+    <span id="Message24"></span><br>
+    <br><span>*</span><label for="child_name"> Child Name: </label> <input type="text" id="cname" name="child_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <span id="Message21"></span><br>
+    <br><label for="child_s_photo"> Child's Photo: </label> <label for="img" class="select">Select image:</label>
+    <input type="file" id="img" name="img" capture="camera" class="file" style="color:green;">
+
+    <br>
+    <br><span>*</span>
+    <label id="birth_date_input">Birth Date*: <input type="date" id="birth_date" name="birth_date"></label>
+    <span id="Message26"></span><br>
+    <br/>
+    <div id="calculate">Calculate the age</div>
+    <br><span>*</span><label for="age"> Age in years: </label> <input id="yage" name="age" onkeypress="return (event.charCode > 47 && event.charCode < 58)">
+    <span id="Message25"></span><br>
+    <br><label for="age_in_months"> Age in months: </label> <input id="mnthage" name="age_in_months" onkeypress="return (event.charCode > 47 && event.charCode < 58)"><br>
+    <br><label for="age_in_days"> Age in days: </label> <input id="dage" name="age_in_days" onkeypress="return (event.charCode > 47 && event.charCode < 58)"><br>
+    <!-- <br><label for="" AgeMD >  </label> <input type =  calculate id=""  name="" AgeMD >
+                <br><label for="" AgeDD >  </label> <input type =  calculate id=""  name="" AgeDD >
+                <br><label for="" AgeSummary > Respondent age is ${Age} years ${AgeMD} months ${AgeDD} days </label> <input type="text" id=""  name="" AgeSummary > -->
+    <br><span class="required">*</span><label for="sex"> Sex: </label> <br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><span id="Message27"></span><br>
+    <br><label for="mother_name"> Mother Name: </label> <input type="text" id="mname" name="mother_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <br>
+    <br><label for="mother_s_age"> Mother's Age: </label> <input id="mumage" name="mother_s_age" onkeypress="return (event.charCode > 47 && event.charCode < 58)"><br>
+    <br><label for="mother_height"> Mother height (in cm): </label> <input type="number" placeholder="1.0" step="0.01" min="0" max="1000" id="mheight" name="mother_height"><br>
+    <br><label for="contact_no"> Mother's Contact No. </label> <input type="number" id="contact" value="" name="mcontact_no">
+    <span id="Message22"></span><br>
+    <br><label for="father_name"> Father Name: </label> <input type="text" id="fname" name="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <br>
+
+    <br><label for="father_height_in_cm"> Father height (in cm): </label> <input type="nmuber" placeholder="1.0" step="0.1" min="0" max="1000" id="fheight" name="father_height_in_cm"><br>
+    <br><label for="contact_no"> Father's Contact No. </label> <input type="number" id="fcontact" value="" name="fcontact_no">
+    <span id="Message23"></span><br>
+    <div><label for="address_geolocate">Address </label> <input type="text" id="address" name="address_geolocate"><br>
+        <div id="map"></div>
+    </div>
+    <br><label for="no_of_siblings"> No. of Siblings </label> <input type="number" id="siblings" name="no_of_siblings"><br>
+
+    <br><label for="" how_many_brothers>How many brothers? </label> <br>
+    <input type="radio" id="onee" name="nmbrbrthrs" value="onee">
+    <label for="onee">One</label><br>
+    <input type="radio" id="to" name="nmbrbrthrs" value="to">
+    <label for="to">Two</label><br>
+    <input type="radio" id="tree" name="nmbrbrthrs" value="tree">
+    <label for="tree">Three</label><br>
+    <input type="radio" id="four" name="nmbrbrthrs" value="four">
+    <label for="four">Four</label><br>
+    <input type="radio" id="morethnfor" name="nmbrbrthrs" value="morethnfor">
+    <label for="morethnfor">More than four</label><br>
+    <br><label for="" How_many_sisters> How many sisters? </label> <br>
+    <input type="radio" id="onee" name="nmbrsis" value="onee">
+    <label for="onee">One</label><br>
+    <input type="radio" id="to" name="nmbrsis" value="to">
+    <label for="to">Two</label><br>
+    <input type="radio" id="tree" name="nmbrsis" value="tree">
+    <label for="tree">Three</label><br>
+    <input type="radio" id="four" name="nmbrsis" value="four">
+    <label for="four">Four</label><br>
+    <input type="radio" id="morethnfor" name="nmbrsis" value="morethnfor">
+    <label for="morethnfor">More than four</label><br>
+    <br><label for="number_of_deaths_in_siblings"> Number of deaths in siblings: </label> <input type="number" id="dsiblings" name="number_of_deaths_in_siblings"><br>
+    <br><label for="cause_of_deaths_in_siblings"> Cause of deaths in siblings: </label> <input type="text" id="csiblings" name="cause_of_deaths_in_siblings"><br>
+    <br><label for="dob_of_last_child"> DOB of last child: </label> <input type="date" id="doboflastchild" name="dob_of_last_child"><br>
+
+    <br><label for="religion"> Religion: </label><br>
+    <input type="radio" id="hindu" name="religion" value="hindu">
+    <label for="hindu">Hindu</label><br>
+    <input type="radio" id="muslim" name="religion" value="muslim">
+    <label for="muslim">Muslim</label><br>
+    <input type="radio" id="sikh" name="religion" value="sikh">
+    <label for="sikh">Sikh</label><br>
+    <input type="radio" id="christian" name="religion" value="christian">
+    <label for="christian">Christian</label><br>
+    <input type="radio" id="baudh" name="religion" value="baudh">
+    <label for="baudh">Baudh</label><br>
+    <input type="radio" id="jain" name="religion" value="jain">
+    <label for="jain">Jain</label><br>
+    <input type="radio" id="others" name="religion" value="others">
+    <label for="others">Others</label><br>
+
+    <br><label for="name_of_gynecologist"> Name of Gynecologist: </label> <input type="text" id="ngyneco" name="name_of_gynecologist">
+    <span id="Message4"></span><br>
+    <br><label for="name_of_pediatrician"> Name of pediatrician: </label> <input type="text" id="npedia" name="name_of_pediatrician">
+    <span id="Message5"></span><br>
+    <h2> Place of Birth: </h2>
+    <label for="institutional"> Institutional </label><br>
+    <input type="radio" id="bmc" name="institution" value="bmc">
+    <label for="bmc">BMC Hospital</label><br>
+    <input type="radio" id="health_Post" name="institution" value="health_post">
+    <label for="health_post">Health Post</label><br>
+    <input type="radio" id="privatehospital" name="institution" value="privatehospital">
+    <label for="privatehospital">Private Hospital</label><br>
+    <input type="radio" id="gvrnmnthspitl" name="institution" value="gvrnmnthspitl">
+    <label for="gvrnmnthspitl">Government Hospital</label><br>
+    <input type="radio" id="othrs" name="institution" value="othrs">
+    <label for="othrs">Others</label><br>
+    <div id="active_others" style="display: none">
+
+        <label>If Others : </label><input type="text" name="specifyothrs" value="" />
+
+
+    </div>
+    <br><label for="who_was_present_at_the_time_of"> Who was present at the time of delivery </label> <br>
+    <input type="radio" id="dctr" name="presenceatdelivery" value="dctr">
+    <label for="dctr">Doctor</label><br>
+    <input type="radio" id="nurse" name="presenceatdelivery" value="nurse">
+    <label for="nurse">Nurse</label><br>
+    <input type="radio" id="anm" name="presenceatdelivery" value="anm">
+    <label for="anm">ANM</label><br>
+    <input type="radio" id="birthattendent" name="presenceatdelivery" value="birthattendent">
+    <label for="birthattendent">Birth Attendent</label><br>
+    <input type="radio" id="home" name="presenceatdelivery" value="home">
+    <label for="home">Home</label><br>
+    <input type="radio" id="otrs" name="presenceatdelivery" value="otrs">
+    <label for="otrs">Others</label><br>
+    <div id="active_otrs" style="display: none">
+
+        <label>If Others : </label><input type="text" name="spcfyothrs" value="" />
+
+
+    </div>
+
+
+
+    <br><label for="type_of_delivery"> Type of Delivery </label> <br>
+    <input type="radio" id="csection" name="" "type" value="csection">
+    <label for="csection">C section</label><br>
+    <input type="radio" id="normal" name="" "type" value="normal">
+    <label for="normal">Normal Vaginal</label><br>
+    <input type="radio" id="vaccum" name="" "type" value="vaccum">
+    <label for="vaccum">Vaccum</label><br>
+
+
+
+    <br><label for="gestational_age_at_birth"> Gestational Age at Birth </label> <br>
+    <input type="radio" id="weeks" name="Gestational" value="weeks">
+    <label for="weeks">In  Weeks</label><br>
+    <input type="radio" id="months" name="Gestational" value="months">
+    <label for="months">In Months</label> <br>
+
+
+
+
+
+    <br><label for="birth_weight"> Birth Weight (in kg): </label> <input type="number" id="birthweight" name="birth_weight"><br>
+    <br><label for="birth_length_in_cms"> Birth Length (in cm): </label> <input type="number" id="birthlen" name="birth_length_in_cms"><br>
+    <br><label for="discharge_weight"> Discharge Weight (in kg): </label> <input type="number" id="dischargeweit" name="discharge_weight"><br>
+    <br><label for="condition_at_birth"> Condition at Birth </label> <br> (if data is available from PHC/District Hospital)<br>
+    <input type="radio" id="cryimmediate" name="conditionatbirth" value="cryimmediate">
+    <label for="cryimmediate">Cried Immediately</label><br>
+    <input type="radio" id="needo2" name="conditionatbirth" value="needo2">
+    <label for="needo2">Needed O2</label> <br>
+    <input type="radio" id="needsupport" name="conditionatbirth" value="needsupport">
+    <label for="needsupport">Needed Extra Support</label><br>
+    <input type="radio" id="otherhsptl" name="conditionatbirth" value="otherhsptl">
+    <label for="otherhsptl">Transferred to other hospital for ICU support</label> <br>
+
+    <br><label for="baby_was_transferred_to_other_"> Baby was transferred to other hospital for </label><br>
+    <input type="radio" id="breathfast" name="babytransfertotherhsptl" value="breathfast">
+    <label for="breathfast">Breathing fast</label><br>
+    <input type="radio" id="infect" name="babytransfertotherhsptl" value="infect">
+    <label for="infect">Infection</label> <br>
+    <input type="radio" id="hrtcond" name="babytransfertotherhsptl" value="hrtcond">
+    <label for="hrtcond">Heart Condition</label><br>
+    <input type="radio" id="notcry" name="babytransfertotherhsptl" value="notcry">
+    <label for="notcry">Not Cried</label><br>
+    <input type="radio" id="premature" name="babytransfertotherhsptl" value="premature">
+    <label for="premature">Prematurity</label> <br>
+    <input type="radio" id="anycause" name="babytransfertotherhsptl" value="anycause">
+    <label for="anycause">Any other cause</label><br>
+    <div id="active_anycause" style="display: none">
+        <label>If any other cause: </label> <input type="text" name="" specifycause value="" />
+    </div>
+    <br><label for="if_normal_then_Brea_ately_after_delivery"> If normal then, Breast Crawl done immediately after delivery </label><br>
+    <input type="radio" id="yes" name="breastcrawlimmediatedone" value="yes">
+    <label for="yes">Yes</label> <br>
+    <input type="radio" id="no" name="breastcrawlimmediatedone" value="no">
+    <label for="no">No</label><br>
+    <br><label for="" Breastfeeding_done> Breastfeeding done </label><br>
+    <input type="radio" id="halfhr" name="bfdone" value="halfhr">
+    <label for="halfhr">Within 1/2 an hour of delivery</label> <br>
+    <input type="radio" id="onehr" name="bfdone" value="onehr">
+    <label for="onehr">Between 1/2 an hour to 1 hour of delivery</label> <br>
+    <input type="radio" id="twntyfrhr" name="bfdone" value="twntyfrhr">
+    <label for="twntyfrhr">Within 24 hours of delivery</label><br>
+    <input type="radio" id="threeday" name="bfdone" value="threeday">
+    <label for="threeday">Within 3 days of delivery</label> <br>
+    <input type="radio" id="morethnthree" name="bfdone" value="morethnthree">
+    <label for="morethnthree">More than 3 days of delivery</label> <br>
+    <input type="radio" id="notgivn" name="bfdone" value="notgivn">
+    <label for="notgivn">Did not given/started at all</label><br>
+
+    <br><label for="umbilical_Cord_was_cut"> Umbilical Cord was cut </label> <br>
+    <input type="radio" id="immediat" name="umbilicalcut" value="immediat">
+    <label for="immediat">Immediately</label> <br>
+    <input type="radio" id="pulsestop" name="umbilicalcut" value="pulsestop">
+    <label for="pulsestop">After pulsation stopped</label> <br>
+    <input type="radio" id="5minutes" name="umbilicalcut" value="5minutes">
+    <label for="5minutes">After 5 minutes</label><br>
+
+
+
+    <br><label for="vitamin_k_injection_given_at_birth"> Vitamin K injection given at birth </label> <br>
+    <input type="radio" id="yes" name="vitamink" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="vitamink" value="no">
+    <label for="no">No</label> <br>
+
+
+
+
+
+    <br><label for="mother_was_taught_br_ing_Antenatal_visits"> Mother was taught breastfeeding during Antenatal visits? </label> <br>
+    <input type="radio" id="yes" name="antenalvisit" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="antenalvisit" value="no">
+    <label for="no">No</label> <br>
+
+    <br><label for="mother_was_taught_breastfeedin"> Mother was taught breastfeeding after delivery by a skilled person </label> <br>
+    <input type="radio" id="yes1" name="breastfeedskill" value="yes1">
+    <label for="yes1">Yes</label><br>
+    <div id="active_yes1" style="display: none">
+        <span> by who? </span> <br>
+        <label><input type="radio" name="bywhom" value="bywhom1" />Lactation Consultant </label><br>
+        <label><input type="radio" name="bywhom" value="bywhom2" />Doctor </label><br>
+        <label><input type="radio" name="bywhom" value="bywhom3" />Nurse </label><br>
+        <label><input type="radio" name="bywhom" value="bywhom4" id="bywhoo" />Others </label><br>
+        <div id="active_bywhoo" style="display: none">
+            <label>If Others Specify: </label> <input type="text" name="" othersspecify value="" />
+        </div>
+    </div>
+    <input type="radio" id="no" name="breastfeedskill" value="no">
+    <label for="no">No</label> <br>
+
+
+
+
+    <br><label for="which_hold_mother_wa_using_to_breastfeed"> Which hold mother was using to breastfeed? </label> <br>
+    <input type="radio" id="cradle" name="holdduringbreastfeed" value="cradle">
+    <label for="cradle">Cradle Hold</label><br>
+    <input type="radio" id="cross" name="holdduringbreastfeed" value="cross">
+    <label for="cross">Cross Cradle Hold</label> <br>
+    <input type="radio" id="football" name="holdduringbreastfeed" value="football">
+    <label for="football">Football Hold</label><br>
+    <input type="radio" id="laidback" name="holdduringbreastfeed" value="laidback">
+    <label for="laidback">Laidback Hold</label> <br>
+    <input type="radio" id="sideline" name="holdduringbreastfeed" value="sideline">
+    <label for="sideline">Sideline Hold</label> <br>
+
+
+
+
+
+    <br><label for="baby_was_given_only_during_hospital_stay"> Baby was given only breast milk during hospital stay </label> <br>
+    <input type="radio" id="yes" name="onlybrstmilk" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="onlybrstmilk" value="no">
+    <label for="no">No</label> <br>
+
+
+    <br><label for="was_baby_given_anything_else_b"> Was baby given anything else besides breast milk </label> <br>
+    <input type="radio" id="yes2" name="besidemilk" value="yes2">
+    <label for="yes2">Yes</label><br>
+    <div id="active_yes2" style="display: none">
+        <span> What? </span> <br>
+        <label><input type="radio" name="whatanythin" value="anything1" />Cow's Milk </label><br>
+        <label><input type="radio" name="whatanythin" value="anything2" />Formula Powder </label><br>
+        <label><input type="radio" name="whatanythin" value="anything3" />Gutti </label><br>
+        <label><input type="radio" name="whatanythin" value="anything4" />Water </label><br>
+        <label><input type="radio" name="whatanythin" value="anything5" />Honey </label><br>
+        <label><input type="radio" name="whatanythin" value="anything6" />Tonic </label><br>
+        <label><input type="radio" name="whatanythin" value="anything7" id="anythingother" />Other </label><br>
+        <div id="active_anythingother" style="display: none">
+            <label>If Other : </label> <input type="text" name="" anythingspecify value=""><br>
+        </div>
+        <br><label> Did doctor/anyone else prescribe  it? </label> <br>
+        <input type="radio" id="yes3" name="dctrprscribtn" value="yes3">
+        <label for="yes3">Yes</label><br>
+        <div id="active_yes3" style="display: none">
+            <label>Specify who : </label> <input type="text" name="" specifyanyone value="" /><br>
+        </div>
+        <input type="radio" id="no" name="dctrprscribtn" value="no">
+        <label for="no">No</label> <br>
+
+    </div>
+    <input type="radio" id="no" name="besidemilk" value="no">
+    <label for="no">No</label> <br>
+
+
+    <br><label for="did_mother_have_any_tion_in_the_hospital"> Did mother have any of the following condition in the hospital? </label> <br>
+    <input type="radio" id="difficulty" name="conditionofmother" value="difficulty">
+    <label for="difficulty">Difficulty feeding</label><br>
+    <input type="radio" id="soring" name="conditionofmother" value="soring">
+    <label for="soring">Nipple sore</label> <br>
+    <input type="radio" id="engorgement" name="conditionofmother" value="engorgement">
+    <label for="engorgement">Breast engorgement</label><br>
+    <input type="radio" id="swell" name="conditionofmother" value="sweell">
+    <label for="swell">Swelling in the breast</label><br>
+    <input type="radio" id="infect" name="conditionofmother" value="infect">
+    <label for="infect">Infection in the breast</label> <br>
+
+    <br><label for="was_mother_taught_Ka_ouch_in_the_hospital"> Was mother taught Kangaroo Mother Care or skin to skin touch in the hospital? </label> <br>
+    <input type="radio" id="yes" name="kangaroocare" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="kangaroocare" value="no">
+    <label for="no">No</label> <br>
+    <br><label for="was_mother_taught_Ka_ouch_in_the_hospital"> how many hours of a day skin to skin touch done? </label> <br>
+    <input type="radio" id="lesthnone" name="skintouchforhr" value="lesthnone">
+    <label for="lesthnone">Less than 1 hour</label><br>
+    <input type="radio" id="morthnone" name="skintouchforhr" value="morthnone">
+    <label for="morthnone">More than 1 hour</label> <br>
+    <input type="radio" id="morthnto" name="skintouchforhr" value="morthnto">
+    <label for="morthnto">More than 2 hour</label><br>
+    <br><label for="" Specify_optional>If not defined then specify : </label> <input type="number" id="" specify9 name="" Specify_optional><br>
+    <br><label for="when_was_baby_bathed_in_the_hospital"> When was baby bathed in the hospital? </label> <br>
+    <input type="radio" id="within" name="babybath" value="within">
+    <label for="within">Within 24 hours</label><br>
+    <input type="radio" id="after" name="babybath" value="after">
+    <label for="after">After 24 hours</label> <br>
+
+    <br><label for="was_baby_given_any_vaccination"> Was baby given any vaccination at the institution after birth </label> <br>
+    <input type="radio" id="yes4" name="babyvaccine" value="yes4">
+    <label for="yes4">Yes</label><br>
+    <div id="active_yes4" style="display: none">
+        <span> Which one? </span><br>
+        <label><input type="radio" name="whichvaccine" value="vaccine1" />BCG </label><br>
+        <label><input type="radio" name="whichvaccine" value="vaccine2" />Hepatitis B </label><br>
+        <label><input type="radio" name="whichvaccine" value="vaccine3" />OPV </label><br>
+    </div>
+    <input type="radio" id="no" name="babyvaccine" value="no">
+    <label for="no">No</label> <br>
+
+
+
+    <br><label for="who_supported_the_pregnant_mot"> Who supported the pregnant mother the most during breastfeeding at home? </label> <br>
+    <input type="radio" id="mum" name="breastfeedathome" value="mum">
+    <label for="mum">Mother</label><br>
+    <input type="radio" id="mumlaw" name="breastfeedathome" value="mumlaw">
+    <label for="mumlaw">Mother In Law</label> <br>
+    <input type="radio" id="husband" name="breastfeedathome" value="husband">
+    <label for="husband">Husband</label><br>
+    <input type="radio" id="aww" name="breastfeedathome" value="aww">
+    <label for="aww">AWW</label> <br>
+    <input type="radio" id="asha" name="breastfeedathome" value="asha">
+    <label for="asha">Asha</label> <br>
+    <input type="radio" id="chv" name="breastfeedathome" value="chv">
+    <label for="chv">CHV</label><br>
+    <input type="radio" id="smdt" name="breastfeedathome" value="smdt">
+    <label for="smdt">SMDT</label> <br>
+    <input type="radio" id="otr" name="breastfeedathome" value="otr">
+    <label for="otr">Others</label><br>
+    <div id="active_otr" style="display: none">
+        <label>If Others Specify : </label> <input type="text" name="" Specifyplace value="" /><br>
+    </div>
+    <br>
+    <h2> Baseline Readings: </h2>
+    <br><label for="baseline_weight"> Baseline Weight (in kg): </label> <input type="number" id="baselineweight" name="baseline_weight"><br>
+    <br><label for="weight_percentile"> Weight percentile: </label> <input type="number" id="weitprsentil" name="weight_percentile"><br>
+    <br><label for="baseline_height"> Baseline Length/Height: </label> <input type="number" id="baselineheight" name="baseline_height"><br>
+    <br><label for="length_height_percentile"> Length/Height percentile: </label> <input type="number" id="lenheipercntil" name="length_height_percentile"><br>
+    <br><label for="head_circumference_cm"> Head Circumference (cm): </label> <input type="number" id="headcircumference" name="head_circumference_cm"><br>
+    <br><label for="baseline_muac_mm"> Baseline MUAC (mm): </label> <input type="number" id="baselinemuac" name="baseline_muac_mm"><br>
+    <br><label for="baseline_stunted_status"> Baseline Stunted Status: </label> <input type="text" id="baselinestunted" name="baseline_stunted_status"><br>
+    <br><label for="baseline_underweight_status"> Baseline Underweight Status: </label> <input type="text" id="baselineunderweight" name="baseline_underweight_status"><br>
+    <br><label for="baseline_wasting_status"> Baseline Wasting Status: </label> <input type="text" id="baselinewasting" name="baseline_wasting_status"><br>
+    <br>
+    <center><input type="submit" value="Submit" class="button"></center>
+</form>
+
+{% endblock %} {% block extra_js %}
+<script>
+    document.getElementById('otr').onclick = function() {
+
+        toggleSub(this, 'active_otr');
+    };
+
+
+
+    var map = L.map('map').setView([19.0760, 74.8777], 5);
+
+
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+
+    var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+
+
+    var results = L.layerGroup().addTo(map);
+
+    searchControl.on('results', function(data) {
+            results.clearLayers();
+
+            for (var i = data.results.length - 1; i >= 0; i--) {
+                results.addLayer(L.marker(data.results[i].latlng));
+            }
+        })
+        //searchLayer is a L.LayerGroup contains searched markers
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes4').onclick = function() {
+
+        toggleSub(this, 'active_yes4');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes3').onclick = function() {
+
+        toggleSub(this, 'active_yes3');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes2').onclick = function() {
+
+        toggleSub(this, 'active_yes2');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('anythingother').onclick = function() {
+
+        toggleSub(this, 'active_anythingother');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('othrs').onclick = function() {
+
+        toggleSub(this, 'active_others');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('otrs').onclick = function() {
+
+        toggleSub(this, 'active_otrs');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('anycause').onclick = function() {
+
+        toggleSub(this, 'active_anycause');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes1').onclick = function() {
+
+        toggleSub(this, 'active_yes1');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('bywhoo').onclick = function() {
+
+        toggleSub(this, 'active_bywhoo');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    $(document).ready(function() {
+        $("#cid").val(Math.floor(100000 + Math.random() * 900000));
+
+    })
+    $(document).ready(function() {
+        var curday = function(sp) {
+            today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //As January is 0.
+            var yyyy = today.getFullYear();
+
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+            return (yyyy + sp + mm + sp + dd);
+        };
+        $("#dor").val(curday('-'));
+
+    })
+
+
+    $(document).ready(function() {
+        $("#calculate").click(function() {
+            var mdate = $("#birth_date").val().toString();
+            var yearThen = parseInt(mdate.substring(0, 4), 10);
+            var monthThen = parseInt(mdate.substring(5, 7), 10);
+            var dayThen = parseInt(mdate.substring(8, 10), 10);
+
+            var today = new Date();
+            var birthday = new Date(yearThen, monthThen - 1, dayThen);
+
+            var differenceInMilisecond = today.valueOf() - birthday.valueOf();
+
+            var year_age = Math.floor(differenceInMilisecond / 31536000000);
+            console.log(year_age)
+            var day_age = Math.floor((differenceInMilisecond % 31536000000) / 86400000);
+
+            if ((today.getMonth() == birthday.getMonth()) && (today.getDate() == birthday.getDate())) {
+                alert("Happy B'day!!!");
+            }
+
+            var month_age = Math.floor(day_age / 30);
+
+
+
+            $('#yage').val(year_age);
+            $('#mnthage').val(month_age);
+            $('#dage').val(day_age);
+        });
+    });
+
+    function validateForm() {
+        var name = document.forms["myForm"]["child_name"].value;
+        var dob = document.forms["myForm"]["birth_date"].value;
+        var phone = document.forms["myForm"]["mcontact_no"].value;
+        var gender = document.forms["myForm"]["gender"].value;
+        var weight = document.forms["myForm"]["birth_weight"].value;
+        var height = document.forms["myForm"]["birth_length_in_cms"].value;
+        var disweight = document.forms["myForm"]["discharge_weight"].value;
+        var baseweight = document.forms["myForm"]["baseline_weight"].value;
+        var weightper = document.forms["myForm"]["weight_percentile"].value;
+        var baseheight = document.forms["myForm"]["baseline_height"].value;
+        var heightper = document.forms["myForm"]["length_height_percentile"].value;
+        var headcm = document.forms["myForm"]["head_circumference_cm"].value;
+        var muacmm = document.forms["myForm"]["baseline_muac_mm"].value;
+
+
+        if (name.length < 1) {
+            document.getElementById('Message21').innerHTML = " Please Enter Child's Name*"
+        }
+        if (dob.length < 1) {
+            document.getElementById('Message26').innerHTML = " Please Enter Date of Birth*";
+        }
+
+        if (phone.length == 0) {
+            document.getElementById('Message22').innerHTML = " Please Enter Contact Number*";
+        } else if (phone.length < 10) {
+            document.getElementById('Message22').innerHTML = " Contact Number should be of 10 digits*";
+        } else if ((phone.charAt(0) != 9) && (phone.charAt(1) != 8) && (phone.charAt(2) != 7) && (phone.charAt(1) != 6)) {
+            document.getElementById("Message22").innerHTML = "number must start from 9,8,7,6";
+            valid = false;
+        }
+        if (gender.length < 1) {
+            document.getElementById('Message27').innerHTML = " Please select the Gender *";
+        }
+        if (weight.length < 1) {
+            document.getElementById('Message6').innerHTML = " Please Enter the Field*"
+        }
+        if (height.length < 1) {
+            document.getElementById('Message7').innerHTML = " Please Enter the Field*";
+        }
+
+        if (disweight.length < 1) {
+            document.getElementById('Message8').innerHTML = " Please Enter the Field*";
+        }
+        if (baseweight.length < 1) {
+            document.getElementById('Message9').innerHTML = " Please Enter the Field*";
+        }
+        if (weightper.length < 1) {
+            document.getElementById('Message10').innerHTML = " Please Enter the Field*"
+        }
+        if (baseheight.length < 1) {
+            document.getElementById('Message11').innerHTML = " Please Enter the Field*";
+        }
+
+        if (heightper.length < 1) {
+            document.getElementById('Message12').innerHTML = " Please Enter the Field*";
+        }
+        if (headcm.length < 1) {
+            document.getElementById('Message13').innerHTML = " Please Enter the Field*";
+        }
+        if (muacmm.length < 1) {
+            document.getElementById('Message14').innerHTML = " Please Enter the Field*";
+        }
+        if (name.length < 1 || phone.length < 10 || dob.length < 1 || gender.length < 1 || weight.length < 1 || height.length < 10 || disweight.length < 1 || baseweight.length < 1 || weightper.length < 1 || baseheight.length < 1 || heightper.length < 10 || headcm.length < 1 || muacmm.length < 1) {
+            return false;
+        }
+    }
+</script>{% endblock %}

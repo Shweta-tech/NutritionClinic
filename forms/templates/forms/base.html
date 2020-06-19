@@ -1,0 +1,820 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>{% block extra-css%}
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>SMDT</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/nivo-slider/css/nivo-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/owl.carousel/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/venobox/venobox.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"> {% block feature_css %} {% endblock %} {% endblock %}
+</head>
+
+<body data-spy="scroll" data-target="/#navbar-example">
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex">
+
+            <div class="logo mr-auto">
+                <h1 class="text-light"><a href="/"><span>SM</span>DT</a></h1>
+
+            </div>
+
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#services">Services</a></li>
+                    <li><a href="/#team">Team</a></li>
+                    <li><a href="/#portfolio">Portfolio</a></li>
+                    <li class="drop-down"><a href="">Doctors & Employees</a>
+                        <ul>
+                            <li><a href="/register/">Registration</a></li>
+                            <li><a href="/login/">LogIn</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- .nav-menu -->
+
+        </div>
+    </header>
+    <!-- End Header -->
+    {% block content %} {% block feature %}
+    <!-- ======= Slider Section ======= -->
+    <div id="home" class="slider-area">
+        <div class="bend niceties preview-2">
+            <div id="ensign-nivoslider" class="slides">
+                <img src="{% static 'img/slider/1.jpg' %}" alt="" title="#slider-direction-1" />
+                <img src="{% static 'img/slider/2.jpg' %}" alt="" title="#slider-direction-2" />
+                <img src="{% static 'img/slider/3.jpg' %}" alt="" title="#slider-direction-3" />
+            </div>
+
+            <!-- direction 1 -->
+            <div id="slider-direction-1" class="slider-direction slider-one">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="slider-content">
+                                <!-- layer 1 -->
+                                <div class="layer-1-1 hidden-xs wow slideInDown" data-wow-duration="2s" data-wow-delay=".2s">
+                                    <h2 class="title1">Nutrition Portal</h2>
+                                </div>
+                                <!-- layer 2 -->
+                                <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
+                                    <h1 class="title2">We're In The Business Of Improving Nutrition of Every Child</h1>
+                                </div>
+                                <!-- layer 3 -->
+                                <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
+                                    <a class="ready-btn right-btn page-scroll" href="/#services">See Services</a>
+                                    <a class="ready-btn page-scroll" href="/#about">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- direction 2 -->
+            <div id="slider-direction-2" class="slider-direction slider-two">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="slider-content text-center">
+                                <!-- layer 1 -->
+                                <div class="layer-1-1 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
+                                    <h2 class="title1">Nutrition Portal</h2>
+                                </div>
+                                <!-- layer 2 -->
+                                <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
+                                    <h1 class="title2">We're In The Business Of Improving Nutrition of Every Child</h1>
+                                </div>
+                                <!-- layer 3 -->
+                                <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
+                                    <a class="ready-btn right-btn page-scroll" href="/#services">See Services</a>
+                                    <a class="ready-btn page-scroll" href="/#about">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- direction 3 -->
+            <div id="slider-direction-3" class="slider-direction slider-two">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="slider-content">
+                                <!-- layer 1 -->
+                                <div class="layer-1-1 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
+                                    <h2 class="title1">Nutrition Portal</h2>
+                                </div>
+                                <!-- layer 2 -->
+                                <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
+                                    <h1 class="title2">We're In The Business Of Improving Nutrition of Every Child</h1>
+                                </div>
+                                <!-- layer 3 -->
+                                <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
+                                    <a class="ready-btn right-btn page-scroll" href="/#services">See Services</a>
+                                    <a class="ready-btn page-scroll" href="/#about">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Slider -->
+
+    <main id="main">
+
+        <!-- ======= About Section ======= -->
+        <div id="about" class="about-area area-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="section-headline text-center">
+                            <h2>About Us</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- single-well start-->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="well-left">
+                            <div class="single-well">
+                                <a href="#">
+                                    <img src="{% static 'img/about/1.jpeg' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single-well end-->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="well-middle">
+                            <div class="single-well">
+                                <a href="#">
+                                    <h4 class="sec-head">Health and Nutrition Program</h4>
+                                </a>
+                                <p>
+                                    Shrimati Malati Dahanukar Trust is a trust in Shrirampur, Maharashtra.It aims at working with the community by addressing the issues within. The main area of work include: Education, Health & Nutrition, Organic Farming & Environmental Sustainability and
+                                    Sports.
+                                </p>
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-check"></i> Mental Development
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check"></i> Physical Development
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check"></i>One on One Counseling
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check"></i> Home Visit
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check"></i> Pregnancy Club
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check"></i> Cooking Demos
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End col-->
+                </div>
+            </div>
+        </div>
+        <!-- End About Section -->
+
+        <!-- ======= Services Section ======= -->
+        <div id="services" class="services-area area-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="section-headline services-head text-center">
+                            <h2>Our Services</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <!-- Start Left services -->
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="about-move">
+                            <div class="services-details">
+                                <div class="single-services">
+                                    <a class="services-icon" href="/service/#ncplm">
+                                        <i class="fa fa-info"></i>
+                                    </a>
+                                    <h4>Nutrition counseling to pregnant and lactating mothers</h4>
+
+                                </div>
+                            </div>
+                            <!-- end about-details -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="about-move">
+                            <div class="services-details">
+                                <div class="single-services">
+                                    <a class="services-icon" href="service/#nc0to6">
+                                        <i class="fa fa-info"></i>
+                                    </a>
+                                    <h4>Nutrition counseling to 0 to 6 years parents</h4>
+
+                                </div>
+                            </div>
+                            <!-- end about-details -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <!-- end col-md-4 -->
+                        <div class=" about-move">
+                            <div class="services-details">
+                                <div class="single-services">
+                                    <a class="services-icon" href="service/#bfc">
+                                        <i class="fa fa-info"></i>
+                                    </a>
+                                    <h4>BreastFeeding Counseling </h4>
+
+                                </div>
+                            </div>
+                            <!-- end about-details -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <!-- end col-md-4 -->
+                        <div class=" about-move">
+                            <div class="services-details">
+                                <div class="single-services">
+                                    <a class="services-icon" href="service/#pc">
+                                        <i class="fa fa-info"></i>
+                                    </a>
+                                    <h4>Pregnancy Club</h4>
+
+                                </div>
+                            </div>
+                            <!-- end about-details -->
+                        </div>
+                    </div>
+                    <!-- End Left services -->
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <!-- end col-md-4 -->
+                        <div class=" about-move">
+                            <div class="services-details">
+                                <div class="single-services">
+                                    <a class="services-icon" href="service/#r0to6">
+                                        <i class="fa fa-info"></i>
+                                    </a>
+                                    <h4>Registration of 0 to 6 years children </h4>
+
+                                </div>
+                            </div>
+                            <!-- end about-details -->
+                        </div>
+                    </div>
+                    <!-- End Left services -->
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <!-- end col-md-4 -->
+                        <div class=" about-move">
+                            <div class="services-details">
+                                <div class="single-services">
+                                    <a class="services-icon" href="service/#tramgp">
+                                        <i class="fa fa-info"></i>
+                                    </a>
+                                    <h4>Takes Regular anthropometric measurements and graph plotting
+                                    </h4>
+
+                                </div>
+                            </div>
+                            <!-- end about-details -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Services Section -->
+
+        <!-- ======= Team Section ======= -->
+        <div id="team" class="our-team-area area-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="section-headline text-center">
+                            <h2>Our Team</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="single-team-member">
+                            <div class="team-img">
+                                <a href="#">
+                                    <img src="{% static 'img/team/2.jpg' %}" alt="">
+                                </a>
+                                <div class="team-social-icon text-center">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="team-content text-center">
+                                <h4>Dr. Rupal Dalal</h4>
+                                <p>Pediatrician</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End column -->
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="single-team-member">
+                            <div class="team-img">
+                                <a href="#">
+                                    <img src="{% static 'img/team/1.jpg' %}" alt="">
+                                </a>
+                                <div class="team-social-icon text-center">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="team-content text-center">
+                                <h4>Deepali Fargade</h4>
+                                <p>Nurse</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End column -->
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="single-team-member">
+                            <div class="team-img">
+                                <a href="#">
+                                    <img src="{% static 'img/team/3.jpg' %}" alt="">
+                                </a>
+                                <div class="team-social-icon text-center">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="team-content text-center">
+                                <h4>Shweta Vilas Sarfare</h4>
+                                <p>Nurse Motivational
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End column -->
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="single-team-member">
+                            <div class="team-img">
+                                <a href="#">
+                                    <img src="{% static 'img/team/4.jpg' %}" alt="">
+                                </a>
+                                <div class="team-social-icon text-center">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="team-content text-center">
+                                <h4>Ashwini sheth</h4>
+                                <p>Nutritionist</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End column -->
+                </div>
+            </div>
+        </div>
+        <!-- End Team Section -->
+
+        <!-- ======= Portfolio Section ======= -->
+        <div id="portfolio" class="portfolio-area area-padding fix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="section-headline text-center">
+                            <h2>Our Portfolio</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row wesome-project-1 fix">
+                    <!-- Start Portfolio -page -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="awesome-menu ">
+                            <ul class="project-menu">
+                                <li>
+                                    <a href="#" class="active" data-filter="*">All</a>
+                                </li>
+                                <li>
+                                    <a href="#" data-filter=".development">Pregnancy Club</a>
+                                </li>
+                                <li>
+                                    <a href="#" data-filter=".design">Home Visit</a>
+                                </li>
+                                <li>
+                                    <a href="#" data-filter=".photo">Cooking Session</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row awesome-project-content">
+                    <!-- single-awesome-project start -->
+                    <div class="col-md-4 col-sm-4 col-xs-12 design development">
+                        <div class="single-awesome-project">
+                            <div class="awesome-img">
+                                <a href="#"><img src="{% static 'img/portfolio/1.jpg' %}" alt="" /></a>
+                                <div class="add-actions text-center">
+                                    <div class="project-dec">
+                                        <a class="venobox" data-gall="myGallery" href="{% static 'img/portfolio/1.jpg' %}">
+                                            <h4>Business City</h4>
+                                            <span>Web Development</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single-awesome-project end -->
+                    <!-- single-awesome-project start -->
+                    <div class="col-md-4 col-sm-4 col-xs-12 photo">
+                        <div class="single-awesome-project">
+                            <div class="awesome-img">
+                                <a href="#"><img src="{% static 'img/portfolio/2.jpg' %}" alt="" /></a>
+                                <div class="add-actions text-center">
+                                    <div class="project-dec">
+                                        <a class="venobox" data-gall="myGallery" href="{% static 'img/portfolio/2.jpg' %}">
+                                            <h4>Blue Sea</h4>
+                                            <span>Photosho</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single-awesome-project end -->
+                    <!-- single-awesome-project start -->
+                    <div class="col-md-4 col-sm-4 col-xs-12 design">
+                        <div class="single-awesome-project">
+                            <div class="awesome-img">
+                                <a href="#"><img src="{% static 'img/portfolio/3.jpg' %}" alt="" /></a>
+                                <div class="add-actions text-center">
+                                    <div class="project-dec">
+                                        <a class="venobox" data-gall="myGallery" href="{% static 'img/portfolio/3.jpg' %}">
+                                            <h4>Beautiful Nature</h4>
+                                            <span>Web Design</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single-awesome-project end -->
+                    <!-- single-awesome-project start -->
+                    <div class="col-md-4 col-sm-4 col-xs-12 photo development">
+                        <div class="single-awesome-project">
+                            <div class="awesome-img">
+                                <a href="#"><img src="{% static 'img/portfolio/4.jpg' %}" alt="" /></a>
+                                <div class="add-actions text-center">
+                                    <div class="project-dec">
+                                        <a class="venobox" data-gall="myGallery" href="{% static 'img/portfolio/4.jpg' %}">
+                                            <h4>Creative Team</h4>
+                                            <span>Web design</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 development">
+                        <div class="single-awesome-project">
+                            <div class="awesome-img">
+                                <a href="#"><img src="{% static 'img/portfolio/5.jpg' %}" alt="" /></a>
+                                <div class="add-actions text-center text-center">
+                                    <div class="project-dec">
+                                        <a class="venobox" data-gall="myGallery" href="{% static 'img/portfolio/5.jpg' %}">
+                                            <h4>Beautiful Flower</h4>
+                                            <span>Web Development</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 design photo">
+                        <div class="single-awesome-project">
+                            <div class="awesome-img">
+                                <a href="#"><img src="{% static 'img/portfolio/6.jpg' %}" alt="" /></a>
+                                <div class="add-actions text-center">
+                                    <div class="project-dec">
+                                        <a class="venobox" data-gall="myGallery" href="{% static 'img/portfolio/6.jpg' %}">
+                                            <h4>Night Hill</h4>
+                                            <span>Photoshop</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single-awesome-project end -->
+                </div>
+            </div>
+        </div>
+        <!-- End Portfolio Section -->
+
+
+
+        <!-- End Suscribe Section -->
+
+        <!-- ======= Contact Section ======= -->
+        <div id="contact" class="contact-area">
+            <div class="contact-inner area-padding">
+                <div class="contact-overly"></div>
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="section-headline text-center">
+                                <h2>Contact us</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Start contact icon column -->
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="contact-icon text-center">
+                                <div class="single-icon">
+                                    <i class="fa fa-mobile"></i>
+                                    <p>
+                                        Call: +1 5589 55488 55<br>
+                                        <span>Monday-Friday (9am-5pm)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Start contact icon column -->
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="contact-icon text-center">
+                                <div class="single-icon">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <p>
+                                        Email: info@example.com<br>
+                                        <span>Web: www.example.com</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Start contact icon column -->
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="contact-icon text-center">
+                                <div class="single-icon">
+                                    <i class="fa fa-map-marker"></i>
+                                    <p>
+                                        Location:Word no.60<br>
+                                        <span>Jijamata nagar, Worli</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <!-- Start Google Map -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <!-- Start Map -->
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452"
+                                width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            <!-- End Map -->
+                        </div>
+                        <!-- End Google Map -->
+
+                        <!-- Start  contact -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="form contact-form">
+                                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                    <div class="form-group">
+                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="loading">Loading</div>
+                                        <div class="error-message"></div>
+                                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                                    </div>
+                                    <div class="text-center"><button type="submit">Send Message</button></div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End Left contact -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Contact Section -->
+
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer>
+        <div class="footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="footer-content">
+                            <div class="footer-head">
+                                <div class="footer-logo">
+                                    <h2><span>SM</span>DT</h2>
+                                </div>
+
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+                                <div class="footer-icons">
+                                    <ul>
+                                        <li>
+                                            <a href="#"><i class="fa fa-facebook"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-google"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single footer -->
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="footer-content">
+                            <div class="footer-head">
+                                <h4>information</h4>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                                </p>
+                                <div class="footer-contacts">
+                                    <p><span>Tel:</span> +123 456 789</p>
+                                    <p><span>Email:</span> contact@example.com</p>
+                                    <p><span>Working Hours:</span> 9am-5pm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single footer -->
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="footer-content">
+                            <!-- <div class="footer-head">
+                                <h4>Instagram</h4>
+                                <div class="flicker-img">
+                                    <a href="#"><img src="{% static 'img/portfolio/1.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{% static 'img/portfolio/2.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{% static 'img/portfolio/3.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{% static 'img/portfolio/4.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{% static 'img/portfolio/5.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{% static 'img/portfolio/6.jpg' %}" alt=""></a>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End  Footer -->
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'vendor/appear/jquery.appear.js' %}"></script>
+    <script src="{% static 'vendor/knob/jquery.knob.js' %}"></script>
+    <script src="{% static 'vendor/parallax/parallax.js' %}"></script>
+    <script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/nivo-slider/js/jquery.nivo.slider.js' %}"></script>
+    <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endblock %} {% endblock %} {% block extra_js %} {% endblock %}
+
+</body>
+
+</html>
+
+</html>
+
+</html>

@@ -1,0 +1,415 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 100px;
+    }
+    
+    table,
+    th,
+    td {
+        border: 2px solid black;
+        border-collapse: collapse;
+        /* padding:10px 0; */
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: larger;
+    }
+    
+    td {
+        font-size: 20px;
+    }
+    
+    h1 {
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    form span {
+        color: red;
+        font-size: 15px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+{% endblock %} {% block content%}
+<form name="myForm" onsubmit="return validateForm()" method="POST" action="/immunization/">
+    {% csrf_token %}
+    <h1>
+        <center> Immunization Form</center>
+    </h1>
+    <table style="width:100%">
+        <tr>
+            <td colspan="10">Child ID: <input type="number" id="cid" name="childid">
+                <span id="Message1"></span><br>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="10">Child Name: <input type="text" id="cname" name="child_name">
+                <span id="Message2"></span><br>
+            </td>
+        </tr>
+        <tr>
+            <th>Vaccine</th>
+            <th>Given or not</th>
+            <th>Remarks(optional)</th>
+        </tr>
+        <tr>
+            <td>Measles 1st Dose (up to 5 years if not received at 9-12 months age)</td>
+            <td>
+                <input type="radio" id="yes" name="measles" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="measles" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks1" name="measles"></textarea></td>
+
+        </tr>
+        <tr>
+            <td>BCG (At birth or within a month of birth )</td>
+            <td>
+                <input type="radio" id="yes" name="bcg" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="bcg" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks1" name="bcg"></textarea></td>
+        </tr>
+        <tr>
+            <td>Hepatitis B Birth dose (At birth or as early as possible within 24 hours)</td>
+            <td>
+                <input type="radio" id="yes" name="hb" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="hb" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks2" name="hb"></textarea></td>
+        </tr>
+        <tr>
+            <td>OPV Birth dose (At birth or as early as possible within the first 15 days)</td>
+            <td>
+                <input type="radio" id="yes" name="opv" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="opv" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks3" name="opv"></textarea></td>
+        </tr>
+        <tr>
+            <td>OPV (At 6 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="opvweeks" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="opvweeks" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks4" name="opvweeks"></textarea></td>
+        </tr>
+        <tr>
+            <td>Measles 2nd dose (16-24 Months)</td>
+            <td>
+                <input type="radio" id="yes" name="msls" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="msls" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks5" name="msls"></textarea></td>
+        </tr>
+        <tr>
+            <td>OPV (at 10 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="opvten" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="opvten" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks6" name="opvten"></textarea></td>
+        </tr>
+        <tr>
+            <td>Rota Virus Vaccine (At 14 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="rota" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="rota" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks7" name="rota"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 9th Dose</td>
+            <td>
+                <input type="radio" id="yes" name="vitmin" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitmin" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks8" name="vitmin"></textarea></td>
+        </tr>
+        <tr>
+            <td>Rota Virus Vaccine (At 6 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="rvirs" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="rvirs" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks9" name="rvirs"></textarea></td>
+        </tr>
+        <tr>
+            <td>OPV (at 14 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="opvforteen" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="opvforteen" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks10" name="opvforteen"></textarea></td>
+        </tr>
+        <tr>
+            <td>IPV (At 6 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="ipv" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="ipv" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks11" name="ipv"></textarea></td>
+        </tr>
+        <tr>
+            <td>Measles 1st Dose (9 months-12 months)</td>
+            <td>
+                <input type="radio" id="yes" name="mesls" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="mesls" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks12" name="mesls"></textarea></td>
+        </tr>
+        <tr>
+            <td>IPV (at 14 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="ipvweeks" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="ipvweeks" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks13" name="ipvweeks"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 5th Dose</td>
+            <td>
+                <input type="radio" id="yes" name="vitaminfiv" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitaminfiv" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks14" name="vitaminfiv"></textarea></td>
+        </tr>
+        <tr>
+            <td>Pentavelant (At 6 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="pen" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="pen" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks15" name="pen"></textarea></td>
+        </tr>
+        <tr>
+            <td>OPV Booster (16-24 months)</td>
+            <td>
+                <input type="radio" id="yes" name="opvboost" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="opvboost" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks16" name="opvboost"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 3rd Dose</td>
+            <td>
+                <input type="radio" id="yes" name="thrdose" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="thrdose" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks17" name="thrdose"></textarea></td>
+        </tr>
+        <tr>
+            <td>DPT 1st booster (16-24 months)</td>
+            <td>
+                <input type="radio" id="yes" name="dpt" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="dpt" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks18" name="dpt"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A, 1st Dose (At 9 months with MR)</td>
+            <td>
+                <input type="radio" id="yes" name="vitmina" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitmina" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks19" name="vitmina"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 4th Dose</td>
+            <td>
+                <input type="radio" id="yes" name="vitminafr" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitminafr" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks20" name="vitminafr"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 8th Dose</td>
+            <td>
+                <input type="radio" id="yes" name="vitminae8" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitminae8" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks21" name="vitminae8"></textarea></td>
+        </tr>
+        <tr>
+            <td>Pentavelant (At 10 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="pentav" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="pentav" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks22" name="pentav"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 2nd Dose (16 months with DPT/OPV booster, then, one dose every 6 month up to the age of 5 years) Please specify the month given</td>
+            <td>
+                <input type="radio" id="yes" name="vitamina2" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitamina2" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks23" name="vitamina2"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 6th Dose</td>
+            <td>
+                <input type="radio" id="yes" name="vitamina6" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitamina6" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks24" name="vitamina6"></textarea></td>
+        </tr>
+        <tr>
+            <td>Pentavelant (At 14 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="pen14" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="pen14" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks25" name="pen14"></textarea></td>
+        </tr>
+        <tr>
+            <td>Rota Virus Vaccine (At 10 weeks)</td>
+            <td>
+                <input type="radio" id="yes" name="rota10" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="rota10" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks26" name="rota10"></textarea></td>
+        </tr>
+        <tr>
+            <td>Vitamin A 7th Dose</td>
+            <td>
+                <input type="radio" id="yes" name="vitamin7" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="vitamin7" value="no" checked>
+                <label for="no">No</label>
+            </td>
+            <td><textarea id="remarks27" name="vitamin7"></textarea></td>
+        </tr>
+    </table>
+    <br>
+    <center><input type="submit" value="Submit" class="button">
+    </center>
+
+
+</form>
+
+{% endblock %} {% block extra_js %}
+<script>
+    function validateForm() {
+        var id = document.forms["myForm"]["childid"].value;
+        var name = document.forms["myForm"]["child_name"].value;
+        if (id.length < 1) {
+            document.getElementById('Message1').innerHTML = " Please Enter Child ID*";
+        }
+        if (name.length < 1) {
+            document.getElementById('Message2').innerHTML = " Please Enter Child's name*";
+        }
+        if (name.length < 1 || id.length < 1) {
+            return false;
+        }
+    }
+</script> {% endblock %}

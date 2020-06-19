@@ -1,0 +1,51 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SMDT</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+
+    <!-- <link rel="stylesheet" type="text/css" href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'> -->
+    <link> {% block extra_css %} {% endblock %}
+
+</head>
+
+<body>
+    {% block content %} {% endblock %} {% block extra_js %} {% endblock %}
+
+</body>
+
+</html>
+<img src={%static "{% static 'images/2f615652-eea9-4f86-af31-232b991251f3_200x200.png' %}" style="width: 80px; height:80px;">
+
+<a href="/">Home</a>
+<a href="/forms/">Forms</a>
+<a href="/login/">Login</a>
+<a href="/registration/">Contact</a>
+<a href="#contact">Contact</a>
+
+</nav>
+{% block content%}
+<section>
+    <img class="mySlides" src={%static "{% static 'images/1.jpg' %} " style="width:100% ">
+    <img class="mySlides " src={%static "{% static 'images/2.jpg' %}" style="width:100% ">
+    <img class="mySlides " src={%static "{% static 'images/3.jpg' %}" style="width:100% ">
+
+</section>

@@ -1,0 +1,52 @@
+{% extends 'forms/base.html' %}{% load static %} {% block feature_css %}
+<style>
+    td a {
+        padding-right: 20px;
+        padding-left: 20px;
+        display: inline-block;
+        text-decoration: underline;
+        color: darkslategrey;
+        margin-left: 50px;
+        font-weight: bolder;
+        font-size: larger;
+    }
+    
+    table {
+        width: 100%;
+        margin-top: 100px;
+    }
+    
+    nav {
+        margin-top: 100px;
+    }
+</style> {% endblock %} {% block feature%}
+
+
+
+
+<table>
+    <tr>
+        <td>
+            <a href="/childregter/">Child Registration Form</a>
+        </td>
+        <td>
+            <a href="/breastfeed/">Breastfeeding Form</a>
+        </td>
+        <td>
+            <a href="/immunization/">Immunization Form</a>
+        </td>
+        <td>
+            <a href="/pre_delivery/">Pre Delivery Form</a>
+        </td>
+        <td>
+            <a href="/follow_up/">Follow Up Form</a>
+        </td>
+        <td>
+            <a href="/home_visit/">Home-visit Form</a>
+        </td>
+
+    </tr>
+</table>
+
+
+{% endblock %}

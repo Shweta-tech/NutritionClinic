@@ -1,0 +1,772 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        border-color: rgb(190, 186, 186);
+        margin-top: 100px;
+    }
+    
+    h1 {
+        background-color: #066f95;
+        padding: 20px 20px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        padding-bottom: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        color: #066f95;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    
+    h3 {
+        padding-top: 20px;
+    }
+    
+    form span {
+        color: red;
+        font-size: 15px;
+    }
+    
+    label {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+{% endblock %} {% block content%}
+<form name="myForm" onsubmit="return validateForm()" method="POST" action="/home_visit/">
+    {% csrf_token %}
+    <h1>
+        <center>Home Visit Form</center>
+    </h1>
+    <br><span>*</span> <label for="child_id"> Child Id:</label> <input type="number" id="cid" name="child_id">
+    <span id="Message1"></span><br>
+    <br><span>*</span> <label for="child_name"> Child's Name:</label> <input type="text" id="cname" name="child_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <span id="Message2"></span><br>
+    <br><span>*</span> <label for="age">Child Age: </label><input id="cage" name="age" onkeypress="return (event.charCode > 47 && event.charCode < 58)">
+    <span id="Message4"></span><br>
+    <br><span>*</span> <label for="mother_name"> Mother's Name: </label><input type="text" id="mname" name="mother_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+    <span id="Message3"></span><br>
+    <br> <label for="home_visit_date">Home Visit Date: </label><input type="date" id="homevisitdate" name="home_visit_date"> <br>
+    <br> <label for="address">Address: </label><input type="text" id="addresshome" name="address"> <br>
+    <br> <label for="contact_no">Contact Number: </label><input type="number" id="contactnmbr" name="contact_no">
+    <span id="Message5"></span><br>
+    <br> <label for="home_visitor_name">Home Visitors Name: </label><input type="text" id="homevisitorname" name="home_visitor_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"> <br>
+    <h2>Family History </h2>
+    <label for="type_of_family">Type of Family: </label><br>
+    <input type="radio" id="jointfamily" name="typesofam" value="jointfamily">
+    <label for="jointfamily">Joint Family</label><br>
+    <input type="radio" id="separatefamily" name="typesofam" value="separatefamily">
+    <label for="separatefamily">Nuclear Family</label> <br>
+    <br> <label for="total_family_member">Total Family Members: </label><input type="number" id="familymembr" name="total_family_member"> <br>
+    <br><label for="occupation">Occupation: </label><input type="text" id="occupationn" name="occupation" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"><br>
+    <br><label for="family_status">Family Status: </label><br>
+    <input type="radio" id="apl" name="famstatus" value="apl">
+    <label for="apl">Below APL</label><br>
+    <input type="radio" id="bpl" name="famstatus" value="bpl">
+    <label for="bpl">Below BPL</label> <br>
+    <br><label for="who_is_earning_source_of_family">Who is earning source of family? </label><input type="text" id="earningsource" name="who_is_earning_source_of_family" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"><br>
+    <br><label for="how_many_members_educated">How many members are educated in family? </label><input type="number" id="membreducate" name="how_many_members_educated"><br>
+    <h2>Observation</h2>
+    <label for="home_construction">Home Construction: </label><br>
+    <input type="radio" id="well" name="homeconstruction" value="well">
+    <label for="well">Well Constructed</label><br>
+    <input type="radio" id="raw" name="homeconstruction" value="raw">
+    <label for="raw">Raw Construction</label> <br>
+    <br><label for="vehicle">Vehicle they own: </label><br>
+    <input type="radio" id="bicycle" name="ownvehicle" value="bicycle">
+    <label for="bicycle">Bicycle</label><br>
+    <input type="radio" id="twowheeler" name="ownvehicle" value="twowheeler">
+    <label for="twowheeler">Two Wheeler</label> <br>
+    <input type="radio" id="fourwheler" name="ownvehicle" value="fourwheler">
+    <label for="fourwheler">Four Wheeler</label> <br>
+    <br><label for="did_they_have_electronics">Did they have electronics gadgets in home? </label><br>
+    <input type="radio" id="yes" name="ownvehicle" value="yes">
+    <label for="yes">Yes</label><br>
+    <div id="active_yes" style="display: none">
+        <span>What electronics gadgets they have? </span><br>
+        <label><input type="checkbox" name="electronics" value="elec1" />T.V.</label>
+        <label><input type="checkbox" name="electronics" value="elec2" />Fridge</label>
+        <label><input type="checkbox" name="electronics" value="elec3" />Microwave</label>
+        <label><input type="checkbox" name="electronics" value="elec4" />Juicer</label>
+        <label><input type="checkbox" name="electronics" value="elec5" />Mixer</label>
+    </div>
+    <input type="radio" id="no" name="ownvehicle" value="no">
+    <label for="no">No</label> <br>
+    <br><label for="home_status">Home Status: </label><br>
+    <input type="radio" id="clean" name="homestatus" value="clean">
+    <label for="clean">Clean</label><br>
+    <input type="radio" id="unclean" name="homestatus" value="unclean">
+    <label for="unclean">Unclean</label><br>
+    <br><label for="home_drainage_syatem">Home Drainage Syatem: </label><br>
+    <input type="radio" id="open" name="darinagesys" value="open">
+    <label for="open">Open</label><br>
+    <input type="radio" id="close" name="darinagesys" value="close">
+    <label for="close">Close</label><br>
+    <br><label for="where_did_they_go_for_washrooms">Where did they go for washrooms? </label><br>
+    <input type="radio" id="ownplace" name="washroom" value="ownplace">
+    <label for="ownplace">At Own Place</label><br>
+    <input type="radio" id="gvrnmnttoilet" name="washroom" value="gvrnmnttoilet">
+    <label for="gvrnmnttoilet">Government Toilet</label><br>
+    <input type="radio" id="openplace" name="washroom" value="openplace">
+    <label for="openplace">Open Place</label><br>
+    <br><label for="is_the_washroom_neat_clean">Is the washroom neat and clean </label><br>
+    <input type="radio" id="yeah" name="neatandclean" value="yeah">
+    <label for="yeah">Yes</label><br>
+    <input type="radio" id="nope" name="neatandclean" value="nope">
+    <label for="nope">No</label><br>
+    <br><label for="how_family_member_behaves_with_mother">How family members behave with mother? </label><br>
+    <input type="radio" id="well" name="behavemthr" value="well">
+    <label for="well">With well respect and care</label><br>
+    <input type="radio" id="disrspct" name="behavemthr" value="disrspct">
+    <label for="disrspct">With disrespect</label><br>
+    <h2>Breast Feeding Child Home Visit</h2>
+    <label for="which_hold_for_breastfeeding"> Which hold for breastfeeding? </label><br>
+    <input type="radio" id="cradle" name="holdduringbreastfeed" value="cradle">
+    <label for="cradle">Cradle Hold</label><br>
+    <input type="radio" id="cross" name="holdduringbreastfeed" value="cross">
+    <label for="cross">Cross Cradle Hold</label> <br>
+    <input type="radio" id="football" name="holdduringbreastfeed" value="football">
+    <label for="football">Football Hold</label><br>
+    <input type="radio" id="laidback" name="holdduringbreastfeed" value="laidback">
+    <label for="laidback">Laidback Hold</label> <br>
+    <input type="radio" id="sideline" name="holdduringbreastfeed" value="sideline">
+    <label for="sideline">Side lying Hold</label> <br>
+    <br><label for="did_mother_give_top_feeding">Did mother give top feeding to child?</label><br>
+    <input type="radio" id="yes1" name="topfeeding" value="yes1">
+    <label for="yes1">Yes</label><br>
+    <div id="active_yes1" style="display: none">
+        <span>If give then which type of top feeding?</span><br>
+        <label><input type="checkbox" name="topfeed" value="topfeed1" />Formula Powder</label>
+        <label><input type="checkbox" name="topfeed" value="topfeed2" />Cow's Milk</label>
+        <label><input type="checkbox" name="topfeed" value="topfeed3" />Boiled Water</label>
+        <label><input type="checkbox" name="topfeed" value="topfeed4" />Normal Water</label>
+        <label><input type="checkbox" name="topfeed" value="topfeed5" />Honey</label>
+        <label><input type="checkbox" name="topfeed" value="topfeed6" />Gutti</label>
+        <label><input type="checkbox" name="topfeed" value="topfeed11" />Tonic</label>
+    </div>
+    <input type="radio" id="no" name="topfeeding" value="no">
+    <label for="no">No</label> <br>
+    <br><label for="who_suggest_mother_to_give_up_top_feeding">Who suggests mother to give top feeding?</label><br>
+    <input type="checkbox" id="dctr" name="whosugest" value="dctr">
+    <label for="dctr">Doctor</label> <br>
+    <div id="active_dctr" style="display: none">
+        <span>Why they suggest?</span><input type="text" name="drsgst" value="" />
+    </div>
+    <input type="checkbox" id="motherinlaw" name="whosugest" value="motherinlaw">
+    <label for="motherinlaw">Mother In Law</label><br>
+    <div id="active_motherinlaw" style="display: none">
+        <span>Why they suggest?</span><input type="text" name="inlawsgst" value="" />
+    </div>
+    <input type="checkbox" id="mthr" name="whosugest" value="mthr">
+    <label for="mthr">Mother</label> <br>
+    <div id="active_mthr" style="display: none">
+        <span>Why they suggest?</span><input type="text" name="mthrsgst" value="" />
+    </div>
+    <input type="checkbox" id="anyonelse" name="whosugest" value="anyonelse">
+    <label for="anyonelse">Anyone Else</label> <br>
+    <div id="active_anyonelse" style="display: none">
+        <span>Why they suggest?</span><input type="text" name="anysgst" value="" />
+    </div>
+    <h2>Observation on child health & hygiene </h2>
+    <label for="does_mother_handwashes_before_preparing_food">Does mother handwashes before preparing food?  </label><br>
+    <input type="radio" id="yes" name="handwash" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="handwash" value="no">
+    <label for="no">No</label><br>
+    <br><label for="follow_process">Does mother follow this process of handwashing before preparing/storing/feeding baby food?  </label><br>
+    <input type="checkbox" id="soap" name="mthrfoloprcs" value="soap">
+    <label for="soap">Soap</label><br>
+    <input type="checkbox" id="warmwatr" name="mthrfoloprcs" value="warmwatr">
+    <label for="warmwatr">Warm Water</label><br>
+    <input type="checkbox" id="rubhands" name="mthrfoloprcs" value="rubhands">
+    <label for="rubhands">Rub hands properly between fingers under nails and on back of the hands</label><br>
+    <input type="checkbox" id="timetowash" name="mthrfoloprcs" value="timetowash">
+    <label for="timetowash">time should be 10-15 seconds</label><br>
+    <input type="checkbox" id="dryhands" name="mthrfoloprcs" value="dryhands">
+    <label for="dryhands">Dry hands immediately with an unused clean cloth</label><br>
+    <br><label for="mother_teach_child_handwashing">Does mother teach her child to wash hands properly as she does? </label><br>
+    <input type="radio" id="yes" name="childhandwash" value="yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="childhandwash" value="no">
+    <label for="no">No</label><br>
+    <br><label for="take_care_personal_hygiene">Does mother take care of these personal hygiene needed for handling baby food?  </label><br>
+    <input type="checkbox" id="togetherwash" name="prsnlhygieneneeds" value="togetherwash">
+    <label for="togetherwash">Does mother and child wash hands together ?</label><br>
+    <input type="checkbox" id="rawfud" name="prsnlhygieneneeds" value="rawfud">
+    <label for="rawfud">Does mother wash hands after handling raw food and garbage?</label><br>
+    <input type="checkbox" id="toilet" name="prsnlhygieneneeds" value="toilet">
+    <label for="toilet">Mother should wash hands after using toilet everytime</label><br>
+    <input type="checkbox" id="animals" name="prsnlhygieneneeds" value="animals">
+    <label for="animals">Handwash after touching animals, a sick child or a sick person</label><br>
+    <input type="checkbox" id="bodyparts" name="prsnlhygieneneeds" value="bodyparts">
+    <label for="bodyparts">Handwash after touching any part of the body</label><br>
+    <input type="checkbox" id="furprep" name="prsnlhygieneneeds" value="furprep">
+    <label for="furprep">Baby food prepartion shoule be always clean</label><br>
+    <input type="checkbox" id="fudserve" name="prsnlhygieneneeds" value="fudserve">
+    <label for="fudserve">Baby food serving should be always clean</label><br>
+    <input type="checkbox" id="fudstore" name="prsnlhygieneneeds" value="fudstore">
+    <label for="fudstore">Baby food storage areas should be always kept clean</label><br>
+    <input type="checkbox" id="cough" name="prsnlhygieneneeds" value="cough">
+    <label for="cough">Never Cough over baby food</label><br>
+    <input type="checkbox" id="sneeze" name="prsnlhygieneneeds" value="sneeze">
+    <label for="sneeze">Never Sneeze near preparing/storing baby food areas</label><br>
+    <input type="checkbox" id="smoke" name="prsnlhygieneneeds" value="smoke">
+    <label for="smoke">Never Smoke near preparing/storing baby food areas</label><br>
+    <input type="checkbox" id="chewgum" name="prsnlhygieneneeds" value="chewgum">
+    <label for="chewgum">Never Chew Gum near preparing/storing baby food areas</label><br>
+    <input type="checkbox" id="spit" name="prsnlhygieneneeds" value="spit">
+    <label for="spit">Never Spit near preparing/storing baby food areas</label><br>
+    <input type="checkbox" id="eat" name="prsnlhygieneneeds" value="eat">
+    <label for="eat">Never eat near preparing/storing baby food areas</label><br>
+    <input type="checkbox" id="nappy" name="prsnlhygieneneeds" value="nappy">
+    <label for="nappy">Do not change baby nappy near food prepration serving and storage areas and always wash hands before and after changing nappy</label><br>
+    <input type="checkbox" id="cloths" name="prsnlhygieneneeds" value="cloths">
+    <label for="cloths">Always wear clean clothing</label><br>
+    <input type="checkbox" id="hair" name="prsnlhygieneneeds" value="hair">
+    <label for="hair">Tie back and cover long hair properly</label><br>
+    <input type="checkbox" id="nails" name="prsnlhygieneneeds" value="nails">
+    <label for="nails">Keep Finger Nails short</label><br>
+    <input type="checkbox" id="nailpolish" name="prsnlhygieneneeds" value="nailpolish">
+    <label for="nailpolish">Do not wear nail polish because it can chip into the food  </label><br>
+    <input type="checkbox" id="jewel" name="prsnlhygieneneeds" value="jewel">
+    <label for="jewel">Avoid wearing jewellery specially in the hands and fingers</label><br>
+    <input type="checkbox" id="awaycloths" name="prsnlhygieneneeds" value="awaycloths">
+    <label for="awaycloths">Keep clothes and personal items away from where food is prepared or stored</label><br>
+    <input type="checkbox" id="utnsils" name="prsnlhygieneneeds" value="utnsils">
+    <label for="utnsils">Do not let food and utensils touch any cuts or wounds on the body</label><br>
+    <input type="checkbox" id="wounds" name="prsnlhygieneneeds" value="wounds">
+    <label for="wounds">Cover all cuts and wounds with an unused clean cloth or bandages</label><br>
+    <input type="checkbox" id="fudtch" name="prsnlhygieneneeds" value="fudtch">
+    <label for="fudtch">Do not touch the food if feeling unwell</label><br>
+    <h2>Complementary feeding Child Home Visit</h2>
+    <label for="who_take_care_of_child">Who takes care of child?</label><br>
+    <input type="checkbox" id="mother" name="takescareofchild" value="mother">
+    <label for="mother">Mother</label><br>
+    <input type="checkbox" id="mothrinlw" name="takescareofchild" value="mothrinlw">
+    <label for="mothrinlw">Mother In Law</label><br>
+    <input type="checkbox" id="husband" name="takescareofchild" value="husband">
+    <label for="husband">Husband</label><br>
+    <input type="checkbox" id="anyother" name="takescareofchild" value="anyother">
+    <label for="anyother">Any other in family</label><br>
+    <div id="active_anyother" style="display: none">
+        <label>Any Other : <input type="text"  name="anyother1" value="" /></label> <br>
+    </div>
+    <br> <label for="what_kind_of_food_given_to_baby"> What Kind of food given to baby?</label> <br>
+    <input type="checkbox" id="liqd" name="fud" value="liqd">
+    <label for="liqd">Liquid</label><br>
+    <input type="checkbox" id="puree" name="fud" value="puree">
+    <label for="puree">Thick Puree</label><br>
+    <input type="checkbox" id="chuncky" name="fud" value="chuncky">
+    <label for="chuncky">Thick Chuncky Food</label><br>
+    <input type="checkbox" id="table" name="fud" value="table">
+    <label for="table">Table Food</label><br>
+    <input type="checkbox" id="fingrfud" name="fud" value="fingrfud">
+    <label for="fingrfud">Finger Food</label><br>
+    <br> <label for="formula_water_mix_appropriate">Does formula and water mix appropriately?</label> <br>
+    <input type="radio" id="true" name="mixing" value="true">
+    <label for="true">Yes</label> <br>
+    <input type="radio" id="false" name="mixing" value="false">
+    <label for="false">No</label><br>
+    <div id="active_false" style="display: none">
+        <label><input type="radio" name="formula" value="formula1" />Diluted</label>
+        <label><input type="radio" name="formula" value="formula2" />Concentrated</label>
+    </div>
+    <br> <label for="did_they_make_separate_food_for_child">Did they make separately food for child?</label> <br>
+    <input type="radio" id="true1" name="separatefud" value="true1">
+    <label for="true1">Yes</label> <br>
+    <input type="radio" id="false1" name="separatefud" value="false1">
+    <label for="false1">No</label><br>
+    <br><label for="did_mother_give_nutritious_powder">Did mother give nutritious powder to child?</label><br>
+    <input type="radio" id="yes11" name="separatefud" value="yes11">
+    <label for="yes11">Yes</label> <br>
+    <div id="active_yes11" style="display: none">
+        <span>If given then which powder?</span><input type="text" name="powder1" value="" />
+    </div>
+    <input type="radio" id="no11" name="separatefud" value="no11">
+    <label for="no11">No</label> <br>
+    <br> <label for="did_junk_food_given_to_child">Did junk food given to child?</label><br>
+    <input type="radio" id="yes22" name="junkfoodgiven" value="yes22">
+    <label for="yes22">Yes</label> <br>
+    <div id="active_yes22" style="display: none">
+        <br> <label for="which_type_of_junk_foods">Which type of junk food they given to child?</label><br>
+        <input type="checkbox" id="fruitprdcts" name="junkfud" value="fruitprdcts">
+        <label for="fruitprdcts">Fruit Products</label><br>
+        <div id="active_fruitproducts" style="display: none">
+
+            <label><input type="checkbox" name="frutprdcts" value="frut1" />Fruit Juices </label>
+            <label><input type="checkbox" name="frutprdcts" value="frut2" id ="frutprdcts"/> Fruit based beverages</label>
+            <div id="fruit_based_beverages" style="display: none">
+
+                <label><input type="radio" name="frutbasedbeverage" value="frutbeverg1" />Milkshake </label>
+                <label><input type="radio" name="frutbasedbeverage" value="frutbeverg2" />Soda </label>
+                <label><input type="radio" name="frutbasedbeverage" value="frutbeverg3" />Frooti </label>
+                <label><input type="radio" name="frutbasedbeverage" value="frutbeverg4" />Fruit Nectars </label>
+            </div>
+            <label><input type="checkbox" name="frutprdcts" value="frut3" />Jams </label>
+            <label><input type="checkbox" name="frutprdcts" value="frut4" /> Jellies</label>
+            <label><input type="checkbox" name="frutprdcts" value="frut5" />Marmalade </label>
+            <label><input type="checkbox" name="frutprdcts" value="frut6" />Murabbas</label>
+        </div>
+        <input type="checkbox" id="confectionary" name="junkfud" value="confectionary">
+        <label for="confectionary">Confectionary</label><br>
+        <div id="confectinaries" style="display: none">
+
+            <label><input type="radio" name="smeconfectionary" value="confec1" />Chocolates </label>
+            <label><input type="radio" name="smeconfectionary" value="confec2" />Eclairs and Toffees</label>
+            <label><input type="radio" name="smeconfectionary" value="confec3" />Hard Candies</label>
+            <label><input type="radio" name="smeconfectionary" value="confec4" />Soft Candies </label>
+
+        </div>
+        <input type="checkbox" id="bakeryprdcts" name="junkfud" value="bakeryprdcts">
+        <label for="bakeryprdcts">Bakery Products</label><br>
+        <div id="bakeryproducts" style="display: none">
+            <label><input type="radio" name="bakryprdct" value="brkry1" />Bread </label>
+            <label><input type="radio" name="bakryprdct" value="brkry2" />Khari/Butter </label>
+            <label><input type="radio" name="bakryprdct" value="brkry3" />Biscuits </label>
+            <label><input type="radio" name="bakryprdct" value="brkry4" />Salty Biscuits </label>
+            <label><input type="radio" name="bakryprdct" value="brkry5" />Cakes/Pastries </label>
+            <label><input type="radio" name="bakryprdct" value="brkry6" />Veg Puffs </label>
+            <label><input type="radio" name="bakryprdct" value="brkry7" />Cream Buns </label>
+        </div>
+        <input type="checkbox" id="beverges" name="junkfud" value="beverges">
+        <label for="beverges">Beverages</label><br>
+        <div id="beverages" style="display: none">
+            <label><input type="radio" name="hotbeverages" value="beverage1" />Tea </label>
+            <label><input type="radio" name="hotbeverages" value="beverage2" />Coffee </label>
+            <label><input type="radio" name="hotbeverages" value="beverage3" />Milk with bournvita </label>
+            <label><input type="radio" name="hotbeverages" value="beverage4" />Milk with complan </label>
+            <label><input type="radio" name="hotbeverages" value="beverage5" />Soft Drinks </label>
+        </div>
+        <input type="checkbox" id="rdytoeat" name="junkfud" value="rdytoeat">
+        <label for="rdytoeat">Ready to eat breakfast</label><br>
+        <div id="readytoeat" style="display: none">
+            <label><input type="radio" name="breakfast" value="brk1" />Chocos </label>
+            <label><input type="radio" name="breakfast" value="brk2" />Idli </label>
+            <label><input type="radio" name="breakfast" value="brk3" />Wada </label>
+            <label><input type="radio" name="breakfast" value="brk4" />Upma </label>
+            <label><input type="radio" name="breakfast" value="brk5" />Sheera </label>
+            <label><input type="radio" name="breakfast" value="brk6" />Dosa </label>
+            <label><input type="radio" name="breakfast" value="brk7" />Cornflakes </label>
+        </div>
+        <input type="checkbox" id="otherjunkfood" name="junkfud" value="otherjunkfood">
+        <label for="otherjunkfood">Others</label><br>
+        <div id="other_junk_food" style="display: none">
+            <label><input type="radio" name="otherjunkfud" value="junkfud1" />Vada Pav </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud2" />Samosa </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud3" />Bhaji </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud4" />Pav Bhaji </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud5" />Chinese Bhel </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud6" />Manchurian </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud7" />Sandwich </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud8" />Kurkure </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud9" />Chips </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud10" />Wafers </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud11" />Sev Puri </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud12" />Chat </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud13" />Chakli </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud14" />Instant Noodles </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud15" />Pizza </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud16" />Burger </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud17" />Dabeli </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud18" />Shorrma </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud19" />Chinese Foods </label>
+            <label><input type="radio" name="otherjunkfud" value="junkfud20" />Pop Corn </label>
+        </div>
+        <br> <label for="who_gives_junk_food_to_child">Who gives junk food to child?</label><br>
+        <input type="checkbox" id="mother1" name="givesjunkfood" value="mother1">
+        <label for="mother1">Mother</label>
+        <input type="checkbox" id="mothrinlw1" name="givesjunkfood" value="mothrinlw1">
+        <label for="mothrinlw1">Mother In Law</label>
+        <input type="checkbox" id="husband1" name="givesjunkfood" value="husband1">
+        <label for="husband1">Husband</label>
+        <input type="checkbox" id="anyother1" name="givesjunkfood" value="anyother1">
+        <label for="anyother1">Any other in family</label>
+        <div id="active_anyother1" style="display: none">
+            <label>Any Other : <input type="text"  name="anyother11" value="" /></label> <br>
+        </div>
+    </div>
+    <input type="radio" id="no22" name="junkfoodgiven" value="no22">
+    <label for="no22">No</label> <br>
+    <br> <label for="does_mother_have_any_addiction">Does mother have any type of Addiction?</label><br>
+    <input type="radio" id="yes55" name="anyaddictionmom" value="yes55">
+    <label for="yes55">Yes</label> <br>
+    <input type="radio" id="no55" name="anyaddictionmom" value="no55">
+    <label for="no55">No</label> <br>
+    <br> <label for="does_father_have_any_addiction">Does father have any type of Addiction?</label><br>
+    <input type="radio" id="yes5" name="anyaddictionfathr" value="yes5">
+    <label for="yes5">Yes</label> <br>
+    <input type="radio" id="no5" name="anyaddictionfathr" value="no5">
+    <label for="no5">No</label> <br>
+    <h2>Medical History Question</h2>
+    <br> <label for="do_family_member_have_such_symptom">Do family members have any of these symptoms?</label><br>
+    <input type="checkbox" id="fvr" name="symptoms" value="fvr">
+    <label for="fvr">Fever</label><br>
+    <input type="checkbox" id="cough" name="symptoms" value="cough">
+    <label for="cough">Cough</label><br>
+    <input type="checkbox" id="throatinfection" name="symptoms" value="throatinfection">
+    <label for="throatinfection">Throat Infection</label><br>
+    <input type="checkbox" id="mntlydisbl" name="symptoms" value="mntlydisbl">
+    <label for="mntlydisbl">Mentally Disable</label><br>
+    <input type="checkbox" id="physclydisbl" name="symptoms" value="physclydisbl">
+    <label for="physclydisbl">Physically Disable</label><br>
+    <input type="checkbox" id="chronicill" name="symptoms" value="chronicill">
+    <label for="chronicill">Chronic Illness</label><br>
+    <br> <label for="does_child_have_such_symptom">Does child have any of these symptoms?</label><br>
+    <input type="checkbox" id="fvr1" name="symptomschild" value="fvr1">
+    <label for="fvr1">Fever</label><br>
+    <input type="checkbox" id="cough1" name="symptoms" value="cough1">
+    <label for="cough1">Cough</label><br>
+    <input type="checkbox" id="throatinfection1" name="symptoms" value="throatinfection1">
+    <label for="throatinfection1">Throat Infection</label><br>
+    <br>
+    <center><input type="submit" value="Submit" class="button"></center>
+
+
+</form>
+
+{% endblock %} {% block extra_js %}
+<script>
+    document.getElementById('yes').onclick = function() {
+
+        toggleSub(this, 'active_yes');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes1').onclick = function() {
+
+        toggleSub(this, 'active_yes1');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('dctr').onclick = function() {
+
+        toggleSub(this, 'active_dctr');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('motherinlaw').onclick = function() {
+
+        toggleSub(this, 'active_motherinlaw');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('mthr').onclick = function() {
+
+        toggleSub(this, 'active_mthr');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('anyonelse').onclick = function() {
+
+        toggleSub(this, 'active_anyonelse');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('anyother').onclick = function() {
+
+        toggleSub(this, 'active_anyother');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('false').onclick = function() {
+
+        toggleSub(this, 'active_false');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes11').onclick = function() {
+
+        toggleSub(this, 'active_yes11');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('fruitprdcts').onclick = function() {
+
+        toggleSub(this, 'active_fruitproducts');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('frutprdcts').onclick = function() {
+
+        toggleSub(this, 'fruit_based_beverages');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('confectionary').onclick = function() {
+
+        toggleSub(this, 'confectinaries');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('bakeryprdcts').onclick = function() {
+
+        toggleSub(this, 'bakeryproducts');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('beverges').onclick = function() {
+
+        toggleSub(this, 'beverages');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('rdytoeat').onclick = function() {
+
+        toggleSub(this, 'readytoeat');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('otherjunkfood').onclick = function() {
+
+        toggleSub(this, 'other_junk_food');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('yes22').onclick = function() {
+
+        toggleSub(this, 'active_yes22');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+    document.getElementById('anyother1').onclick = function() {
+
+        toggleSub(this, 'active_anyother1');
+    };
+
+    function toggleSub(box, id) {
+
+        var el = document.getElementById(id);
+
+        if (box.checked) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    function validateForm() {
+        var id = document.forms["myForm"]["child_id"].value;
+        var name = document.forms["myForm"]["child_name"].value;
+        var phone = document.forms["myForm"]["contact_no"].value;
+        var mname = document.forms["myForm"]["mother_name"].value;
+        var age = document.forms["myForm"]["age"].value;
+
+
+        if (name.length < 1) {
+            document.getElementById('Message2').innerHTML = " Please Enter Child's Name*"
+        }
+        if (id.length < 1) {
+            document.getElementById('Message1').innerHTML = " Please Enter Child ID*";
+        }
+
+        if (phone.length == 0) {
+            document.getElementById('Message5').innerHTML = " Please Enter Contact Number*";
+        } else if (phone.length < 10) {
+            document.getElementById('Message5').innerHTML = " Contact Number should be of 10 digits*";
+        } else if ((phone.charAt(0) != 9) && (phone.charAt(1) != 8) && (phone.charAt(2) != 7) && (phone.charAt(1) != 6)) {
+            document.getElementById("Message5").innerHTML = "number must start from 9,8,7,6";
+            valid = false;
+        }
+        if (mname.length < 1) {
+            document.getElementById('Message3').innerHTML = " Please select Mother's name *";
+        }
+        if (age.length < 1) {
+            document.getElementById('Message4').innerHTML = " Please Enter the Age*"
+        }
+
+        if (name.length < 1 || mname.length < 10 || id.length < 1 || age.length < 1 || phone.length < 1) {
+            return false;
+        }
+    }
+</script>{% endblock %}

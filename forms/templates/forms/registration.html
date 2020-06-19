@@ -1,0 +1,172 @@
+{% extends 'forms/base.html' %} {% load static %} {% block feature_css %}
+
+
+<style>
+    label {
+        font-weight: bold;
+        font-size: 20px;
+        text-align: left;
+    }
+    
+    div {
+        padding: 5px;
+        text-align-last: center;
+    }
+    
+    form {
+        margin: auto;
+        width: 85%;
+        box-shadow: 5px 10px #bdbcbc;
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        border-style: solid;
+        margin-top: 100px;
+    }
+    
+    tr {
+        text-align: left;
+        padding: 10px;
+    }
+    
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #066f95;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+    }
+    
+    .button:hover {
+        background-color: #568088
+    }
+    
+    .button:active {
+        background-color: #55a5b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+</style>
+{% endblock %} {% block content%}
+<form onsubmit="return myfun()" action="/forms/">
+    {% csrf_token %}
+
+    <center>
+
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
+
+                    <div class="login100-form-title" style="background-image: url(images/bg-02.jpg);">
+                        <h1 class="login100-form-title-1">
+                            Registration
+                        </h1>
+                    </div>
+                    <form class="login100-form validate-form">
+                        <table>
+                            <tr>
+                                <div class="wrap-input100 validate-input m-b-26" data-validate="Employee name is required">
+                                    <td>
+                                        <label class="label-input100">Employee Name</label></td>
+                                    <td>
+                                        <input class="input100" type="text" name="empname" pattern="^[a-zA-Z ]*$" title="Digits not allowed in name" placeholder="Enter your name" required>
+                                        <label class="focus-input100"></label></td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                                    <td>
+                                        <label class="label-input100">Email id</label>
+                                    </td>
+                                    <td>
+                                        <input class="input100" type="email" name="email" placeholder="Enter email" required>
+                                        <label class="focus-input100"></label>
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                                    <td>
+                                        <label class="label-input100">Create Password</label>
+                                    </td>
+                                    <td>
+                                        <input class="input100" type="password" name="password" minlength="8" placeholder="Enter password" required>
+                                        <label class="focus-input100"></label>
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="wrap-select100 validate-input m-b-18">
+                                    <td>
+                                        <label class="label-input100">Profession</label>
+                                    </td>
+                                    <td>
+                                        <select>
+                                <option value="" disabled selected>Choose your option</option>
+                              <option value="doctor">Doctor</option>
+                              <option value="dietician">Dietician</option>
+                              <option value="nurse">Nurse</option>
+                              <option value="gynecologist">Gynecologist</option>
+                              <option value="nutritionist">Nutritionist</option>
+                              <option value="pediatrician">Pediatrician</option>
+    
+                            </select>
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="wrap-input100 validate-input m-b-18" data-validate="Contact number is required">
+                                    <td>
+                                        <label class="label-input100">Contact Number</label>
+                                    </td>
+                                    <td>
+                                        <input class="input100" type="tel" pattern="[7-9]{3}[0-9]{7}" maxlength="10" name="contact" placeholder="Contact Number" title="Enter correct phone number" required>
+                                        <label class="focus-input100"></label>
+                                    </td>
+                                </div>
+                            </tr>
+                        </table>
+                        <div class="container-login100-form-btn">
+                            <button class="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+</form>
+</center>
+</form>
+
+{% endblock %} {% block extra_js %}
+<script>
+    function myfun() {
+        var a = document.getElementById("passwords").value;
+        var b = document.getElementById("myEmail").value;
+        if (b == "") {
+            document.getElementById("messages1").innerHTML = "Please fill required field";
+            return false;
+        }
+        if (a == "") {
+            document.getElementById("messages").innerHTML = "Please fill required field";
+            return false;
+        }
+        if (a.length < 5) {
+            document.getElementById("messages").innerHTML = "Password must be greater than 5 characters";
+            return false;
+        }
+        if (a.length > 25) {
+            document.getElementById("messages").innerHTML = "Password must be less than 25 characters";
+            return false;
+        }
+    }
+</script>{% endblock %}
